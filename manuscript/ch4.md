@@ -1,41 +1,41 @@
 # Functional-Light JavaScript
-# Chapter 4: Composing Functions
+# Capítulo 4: Compondo funções
 
-By now, I hope you're feeling much more comfortable with what it means to use functions for functional programming.
+Por hora, espero que você esteja se sentindo bem mais a vontade com o significado do uso das funções para programação funcional.
 
-A functional programmer sees every function in their program like a simple little Lego piece. They recognize the blue 2x2 brick at a glance, and know exactly how it works and what they can do with it. When they begin building a bigger, more complex Lego model, as they need each next piece, they already have an instinct for which of their many spare pieces to grab.
+Um programador ou uma programadora funcionais vêem toda função do seu programa como uma simples peça de lego. Eles reconhecem a peça azul 2x2 em um bloco à primeira vista e sabem exatamente como funciona e o que pode ser feito.
 
-But sometimes you take the blue 2x2 brick and the gray 4x1 brick and put them together in a certain way, and you realize, "that's a useful piece that I need often".
+Mas as vezes você pega a peça azul 2x2, a cinza 4x1 e as coloca juntas em um formato específico, e aí percebe, "essa é uma peça que pode ser usada com frequência".
 
-So now you've come up with a new "piece", a combination of two other pieces, and you can reach for that kind of piece now anytime you need it. It's more effective to recognize and use this compound blue-gray L-brick thing where it's needed than to separately think about assembling the two individual bricks each time.
+E agora combinando duas peças, você criou uma nova "peça", e sempre que precisar poderá usá-la. É mais fácil usar essa peça composta por cinza e azul onde necessário, do que usá-las separadamente a cada vez.
 
-Functions come in a variety of shapes and sizes. And we can define a certain combination of them to make a new compound function that will be handy in various parts of the program. This process of using functions together is called composition.
+As funções existem de vários formatos e tamanho. E nós podemos definir uma determinada combinação para formar uma função composta que irá ser útil em várias partes do programa.
+Este processo de utilização conjunta de funções é chamado de composição.
 
-Composition is how an FPer models the flow of data through the program. In some senses, it's the most foundational concept in all of FP, because without it, you can't declaratively model data and state changes. In other words, everything else in FP would collapse without composition.
+Composição é como um FPer modela o fluxo de dados através do programa. De alguma forma, este é o conceito mais fundamental em todo o FP, porque sem ele, você não pode modelar dados declarativamente e nem alterar estado. Em outras palavras, todo o resto em FP entraria em colapso sem composição.
 
-## Output to Input
+## Saída para entrada
 
-We've already seen a few examples of composition. For example, our discussion of [`unary(..)` in Chapter 3](ch3.md/#user-content-unary) included this expression: [`[..].map(unary(parseInt))`](ch3.md/#user-content-mapunary). Think about what's happening there.
+Nós já vimos alguns poucos exemplos de composição. Por exemplo, nossa discussão de [`unary(..)` in Chapter 3](ch3.md/#user-content-unary) incluiu esta expressão: [`[..].map(unary(parseInt))`](ch3.md/#user-content-mapunary). Reflita sobre o que acontece aqui.
 
-To compose two functions together, pass the output of the first function call as the input of the second function call. In `map(unary(parseInt))`, the `unary(parseInt)` call returns a value (a function); that value is directly passed as an argument to `map(..)`, which returns an array.
-
-To take a step back and visualize the conceptual flow of data, consider:
+Para compor duas funções juntas, passe a saída da primeira chamada de função como a entrada da segunda chamada de função. Em `map(unary(parseInt))`, o `unary(parseInt)` chamado retorna um valor (uma função); que o valor é diretamente passado como argumento para `map(..)`, que retorna um array.
+Para dar um passo atrás e visualizar o fluxo conceitual de dados, considere:
 
 ```txt
 arrayValue <-- map <-- unary <-- parseInt
 ```
 
-`parseInt` is the input to `unary(..)`. The output of `unary(..)` is the input to `map(..)`. The output of `map(..)` is `arrayValue`. This is the composition of `map(..)` and `unary(..)`.
+`parseInt` é a entrada para `unary(..)`. a saída de `unary(..)` é a entrada para `map(..)`. A saída de `map(..)` é `arrayValue`. Isto é a composição de `map(..)` e `unary(..)`.
 
-**Note:** The right-to-left orientation here is on purpose, though it may seem strange at this point in your learning. We'll come back to explain that more fully later.
+**Nota:** A orientação da direita para a esquerda aqui é proposital, embora possa parecer estranha neste ponto do seu aprendizado. Voltaremos para explicar isso mais detalhadamente mais tarde.
 
-Think of this flow of data like a conveyor belt in a candy factory, where each operation is a step in the process of cooling, cutting, and wrapping a piece of candy. We'll use the candy factory metaphor throughout this chapter to explain what composition is.
+Pense neste fluxo de dados como uma esteira em uma loja de doces, onde cada operação é um passo no processo de resfriamento, corte e embalagem dos doces. Iremos usar a metáfora da loja de doces ao longo deste capítulo para explicar o que é composição.
 
 <p align="center">
     <img src="images/fig2.png">
 </p>
 
-Let's examine composition in action one step at a time. Consider these two utilities you might have in your program:
+Vamos examinar a composição em ação um passo de cada vez. Considere estas duas utilidades que você pode ter no seu programa:
 
 ```js
 function words(str) {
@@ -51,7 +51,7 @@ function unique(list) {
     var uniqList = [];
 
     for (let v of list) {
-        // value not yet in the new list?
+        // valor ainda não está na nova lista?
         if (uniqList.indexOf( v ) === -1 ) {
             uniqList.push( v );
         }
@@ -61,14 +61,14 @@ function unique(list) {
 }
 ```
 
-`words(..)` splits a string into an array of words. `unique(..)` takes a list of words and filters it to not have any repeat words in it.
-
-To use these two utilities to analyze a string of text:
+`words(..)` divide uma sequência dentro de um array de palavras. `unique(..)` pega uma lista de palavras e filtra para não ter nenhuma palavra repetida.           
+Para usar essas duas opções para analisar uma sequência de texto:
 
 ```js
-var text = "To compose two functions together, pass the \
-output of the first function call as the input of the \
-second function call.";
+var text = "Para compor duas funções juntas, passe a \
+saída da primeira chamada de função como a entrada da \
+segunda chamada de função.";
+
 
 var wordsFound = words( text );
 var wordsUsed = unique( wordsFound );
@@ -79,19 +79,22 @@ wordsUsed;
 // "input","second"]
 ```
 
-We name the array output of `words(..)` as `wordsFound`. The input of `unique(..)` is also an array, so we can pass the `wordsFound` into it.
+Chamamos a saída do array de `words(..)`como `wordsFound`. A entrada de `unique(..)` que é também um array, para que possamos passar o `wordsFound` pra ele.
 
-Back to the candy factory assembly line: the first machine takes as "input" the melted chocolate, and its "output" is a chunk of formed and cooled chocolate. The next machine a little down the assembly line takes as its "input" the chunk of chocolate, and its "output" is a cut-up piece of chocolate candy. Next, a machine on the line takes small pieces of chocolate candy from the conveyor belt and outputs wrapped candies ready to bag and ship.
+
+De volta à linha de produção da fábrica de doces: a primeira máquina tem como "entrada"(Input) o chocolate derretido, e a "saída"(Output) é um pedaço de chocolate formado e resfriado. A próxima máquina um pouco abaixo da linha de produção tem como "entrada"(Input) o pedaço de chocolate formado e resfriado, e a "saída"(Output) é um pedaço recortado de doce de chocolate. A seguir, uma máquina na linha pega pequenos pedaços de doce de chocolate da esteira e embrulha para saírem prontos para encaixotar e transportar.
 
 <img src="images/fig3.png" align="right" width="9%" hspace="20">
 
-The candy factory is fairly successful with this process, but as with all businesses, management keeps searching for ways to grow.
+A fábrica de doces tem muito sucesso nesse processo, mas como em todo negócio, a chefia continua buscando por maneiras de crescer.
 
-To keep up with demand for more candy production, they decide to take out the conveyor belt contraption and just stack all three machines on top of one another, so that the output valve of one is connected directly to the input valve of the one below it. There's no longer sprawling wasted space where a chunk of chocolate slowly and noisily rumbles down a conveyor belt from the first machine to the second.
 
-This innovation saves a lot of room on the factory floor, so management is happy they'll get to make more candy each day!
+Para aumentar a demanda da produção de doces, eles decidem retirar a esteira e simplesmente empilhar as três máquinas umas sobre as outras, de modo que a válvula de saída de uma seja conectada diretamente à válvula de entrada da outra abaixo dela. Não há mais espaço desperdiçado onde um pedaço de chocolate desce lenta e ruidosamente por uma esteira rolante da primeira para a segunda máquina.
 
-The code equivalent of this improved candy factory configuration is to skip the intermediate step (the `wordsFound` variable in the earlier snippet), and just use the two function calls together:
+Esta inovação economiza um grande espaço na fábrica, e então a chefia está feliz da vida porque irá conseguir fazer mais doces por dia!
+
+
+O código equivalente a esta nova configuração da fábrica de doces precisa pular a etapa intermediária (a variável `wordsFound` no trecho anterior) e apenas usar as duas chamadas de função juntas:
 
 ```js
 var wordsUsed = unique( words( text ) );
