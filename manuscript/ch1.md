@@ -1,17 +1,17 @@
-# Functional-Light JavaScript
-# Chapter 1: Why Functional Programming?
+# Functional-Light JavaScript (JavaScript Funcional Leve)
+# Capitulo 1: Por que Programação Funcional?
 
-> Functional programmer: (noun) One who names variables "x", names functions "f", and names code patterns "zygohistomorphic prepromorphism"
+> Programação Funcional: (substantivo) Aquele que nomeia variáveis "x", nomeia funções "f", e nomeia padrões de código "pré-promorfismo zigohistomórfico"
 >
 > James Iry @jamesiry 5/13/15
 >
 > https://twitter.com/jamesiry/status/598547781515485184
 
-Functional Programming (FP) is not a new concept by any means. It's been around almost the entire history of programming. However, and I'm not sure it's fair to say, but... it sure hasn't seemed like as mainstream of a concept in the overall developer world until perhaps the last few years. I think FP has more been the realm of academics.
+Programação Funcional (PF) de forma alguma é um conceito novo. Ela esta presente em toda a historia da programação. Entretanto, e não tenho certeza se é justo dizer, mas... com certeza não parecia um conceito tão comum no mundo dos desenvolvedores até nos ultimos dez anos talvez. Acho que a Programação Funcional tem sido mais uma matéria acadêmica.
 
-That's all changing, though. A groundswell of interest is growing around FP, not just at the languages level but even in libraries and frameworks. You very well might be reading this text because you've finally realized FP is something you can't ignore any longer. Or maybe you're like me and you've tried to learn FP many times before but struggled to wade through all the terms or mathematical notation.
+No entanto tudo isso esta mudando. Uma onda de interesse está crescendo em torno da Programação funcional, não apenas no nível das linguagens, mas também nas bibliotecas e ferramentas. Você pode muito bem estar lendo este livro porque finalmente entendeu que programação funcional é algo que você não pode mais ignorar. Ou talvez você seja como eu e já tentou aprender programação funcional muitas vezes mas teve dificuldades em ler todos os termos ou notações matemáticas.
 
-This first chapter's purpose is to answer questions like "Why should I use FP style with my code?" and "How does Functional-Light JavaScript compare to what others say about FP?" After we've laid that groundwork, throughout the rest of the book we'll uncover, piece by piece, the techniques and patterns for writing JS in Functional-Light style.
+O objetivo deste primeiro capítulo é responder perguntas como "Por que devo usar o estilo de P.F. no meu código?" e "Como este livro se compara ao que os outros dizem sobre P.F?". Depois de estabelecermos uma base, ao longo do livro descobriremos, peça por peça, as técnicas e os padrões para escrever JS no estilo "Funcional Leve".
 
 ## At a Glance
 
