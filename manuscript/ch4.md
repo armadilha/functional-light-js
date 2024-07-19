@@ -16,7 +16,7 @@ Composição é como um FPer modela o fluxo de dados através do programa. De al
 
 ## Saída para entrada
 
-Nós já vimos alguns poucos exemplos de composição. Por exemplo, nossa discussão de [`unary(..)` in Chapter 3](ch3.md/#user-content-unary) incluiu esta expressão: [`[..].map(unary(parseInt))`](ch3.md/#user-content-mapunary). Reflita sobre o que acontece aqui.
+Nós já vimos alguns poucos exemplos de composição. Por exemplo, nossa discussão de [`unary(..)` no capítulo 3](ch3.md/#user-content-unary) incluiu esta expressão: [`[..].map(unary(parseInt))`](ch3.md/#user-content-mapunary). Reflita sobre o que acontece aqui.
 
 Para compor duas funções juntas, passe a saída da primeira chamada de função como a entrada da segunda chamada de função. Em `map(unary(parseInt))`, o `unary(parseInt)` chamado retorna um valor (uma função); que o valor é diretamente passado como argumento para `map(..)`, que retorna um array.
 Para dar um passo atrás e visualizar o fluxo conceitual de dados, considere:
@@ -100,13 +100,13 @@ O código equivalente a esta nova configuração da fábrica de doces precisa pu
 var wordsUsed = unique( words( text ) );
 ```
 
-**Note:** Though we typically read the function calls left-to-right -- `unique(..)` and then `words(..)` -- the order of operations will actually be more right-to-left, or inner-to-outer. `words(..)` will run first and then `unique(..)`. Later we'll talk about a pattern that matches the order of execution to our natural left-to-right reading, called `pipe(..)`.
+**Nota:** Apesar de escrevermos uma chamada de função da esquerda para a direita -- `unique(..)` e então `words(..)` -- a ordem das operações serão na verdade mais da direita para a esquerda, ou de dentro para fora. `words(..)` irá rodar primeiro e depois `unique(..)`. Mais tarde falaremos sobre um padrão que combina a ordem de execução com a nossa leitura natural da esquerda para a direita, chamado `pipe(..)`.
 
-The stacked machines are working fine, but it's kind of clunky to have the wires hanging out all over the place. The more of these machine-stacks they create, the more cluttered the factory floor gets. And the effort to assemble and maintain all these machine stacks is awfully time intensive.
+As máquinas empilhadas estão funcionando bem, mas é meio desorganizado termos os fios pendurados por todo lado. Quanto mais máquinas empilhadas eles criarem, mais desordenado fica o andar da fábrica. E o esforço para montar e manter todas essas pilhas de máquinas consome muito tempo.
 
 <img src="images/fig4.png" align="left" width="15%" hspace="20">
 
-One morning, an engineer at the candy factory has a great idea. She figures that it'd be much more efficient if she made an outer box to hide all the wires; on the inside, all three of the machines are hooked up together, and on the outside everything is now neat and tidy. On the top of this fancy new machine is a valve to pour in melted chocolate and on the bottom is a valve that spits out wrapped chocolate candies. Brilliant!
+Em uma manhã, uma engenheira da fábrica de doces tem uma excelente idéia. Ela pensa que será bem mais eficiente se ela fizer uma caixa externa para acomodar os cabos; por dentro, todas as três máquinas estão interligadas e, por fora, tudo está limpo e arrumado. No topo desta nova máquina sofisticada há uma válvula para despejar o chocolate derretido e na parte inferior há uma válvula que cospe bombons de chocolate embrulhados. Brilhante!
 
 This single compound machine is much easier to move around and install wherever the factory needs it. The workers on the factory floor are even happier because they don't need to fidget with buttons and dials on three individual machines anymore; they quickly prefer using the single fancy machine.
 
