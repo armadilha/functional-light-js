@@ -108,9 +108,9 @@ As máquinas empilhadas estão funcionando bem, mas é meio desorganizado termos
 
 Em uma manhã, uma engenheira da fábrica de doces tem uma excelente idéia. Ela pensa que será bem mais eficiente se ela fizer uma caixa externa para acomodar os cabos; por dentro, todas as três máquinas estão interligadas e, por fora, tudo está limpo e arrumado. No topo desta nova máquina sofisticada há uma válvula para despejar o chocolate derretido e na parte inferior há uma válvula que cospe bombons de chocolate embrulhados. Brilhante!
 
-This single compound machine is much easier to move around and install wherever the factory needs it. The workers on the factory floor are even happier because they don't need to fidget with buttons and dials on three individual machines anymore; they quickly prefer using the single fancy machine.
+Esta máquina de composto único é muito mais fácil de transportar e instalar em qualquer lugar da fábrica. Os trabalhadores deste piso da fábrica estãoainda mais contentes pois já não precisam operar três máquinas diferentes individualmente; eles preferem usar uma única máquina mais sofisticada.
 
-Relating back to the code: we now realize that the pairing of `words(..)` and `unique(..)` in that specific order of execution (think: compound Lego) is something we could use in several other parts of our application. So, let's define a compound function that combines them:
+De volta ao código: nós percebemos que a combinação de `words(..)` e `unique(..)` nesta ordem de execução específica (pense: lego composto) é algo que poderíamos usar em várias outras partes da nossa aplicação. Então, vamos definir uma função composta que os combine:
 
 ```js
 function uniqueWords(str) {
@@ -118,27 +118,27 @@ function uniqueWords(str) {
 }
 ```
 
-`uniqueWords(..)` takes a string and returns an array. It's a composition of the two functions: `unique(..)` and `words(..)`; it creates this flow of data:
+`uniqueWords(..)` pega uma string e retorna um array. Isto é uma composição de duas funções: `unique(..)` e `words(..)`; isto cria este fluxo de dados:
 
 ```txt
 wordsUsed <-- unique <-- words <-- text
 ```
 
-You probably recognize it by now: the unfolding revolution in candy factory design is function composition.
+Provavelmente agora você já tenha reconhecido isso: a revolução que se desenrola no design de fábricas de doces é a composição de funções.
 
-### Machine Making
+### Criando as máquinas
 
-The candy factory is humming along nicely, and thanks to all the saved space, they now have plenty of room to try out making new kinds of candies. Building on the earlier success, management is keen to keep inventing new fancy compound machines for their growing candy assortment.
+A fábrica de doces está funcionando muito bem e, graças a todo o espaço economizado, eles agora têm muito espaço para experimentar fazer novos tipos de doces. Com base no sucesso anterior, a administração está empenhada em continuar a inventar novas máquinas sofisticadas de compostos para a sua crescente variedade de doces.
 
-But the factory engineers struggle to keep up, because each time a new kind of fancy compound machine needs to be made, they spend quite a bit of time making the new outer box and fitting the individual machines into it.
+Mas a batalha dos engenheiros da fábrica continua, porque cada vez que uma nova máquina composta sofisticada precisa ser criada, eles gastam bastante tempo fazendo uma nova caixa externa e encaixando as máquinas individuais nela.
 
-So the factory engineers contact an industrial machine vendor for help. They're amazed to find out that this vendor offers a **machine-making** machine! As incredible as it sounds, they purchase a machine that can take a couple of the factory's smaller machines -- the chocolate cooling one and the cutting one, for example -- and wire them together automatically, even wrapping a nice clean bigger box around them. This is surely going to make the candy factory really take off!
+Por isso os engenheiros contactaram um fornecedor de máquinas industriais para os ajudar. Eles ficaram surpresos quando descobriram que este fornecedor possui uma máquina **fazedora de máquinas**! Por mais incrível que pareça, eles compraram uma máquina que pode acomodar algumas das máquinas menores da fábrica -- a do resfriamento do chocolate e a do corte, por exemplo -- e conectá-las automaticamente, mesmo alocando-os em uma caixa maior, bonita e limpa. Isso certamente fará com que a fábrica de doces realmente decole!
 
 <p align="center">
     <img src="images/fig5.png" width="50%">
 </p>
 
-Back to code land, let's consider a utility called `compose2(..)` that creates a composition of two functions automatically, exactly the same way we did manually:
+De volta ao código, vamos considerar um utilitário chamado `compose2(..)` que cria uma composição de duas funções automaticamente, exatamente da mesma forma que fizemos manualmente:
 
 ```js
 function compose2(fn2,fn1) {
@@ -154,9 +154,9 @@ var compose2 =
             fn2( fn1( origValue ) );
 ```
 
-Did you notice that we defined the parameter order as `fn2,fn1`, and furthermore that it's the second function listed (aka `fn1` parameter name) that runs first, then the first function listed (`fn2`)? In other words, the functions compose from right-to-left.
+Você percebeu que nós definimos a ordem dos parâmetros com `fn2, fn1`, e além disso é a segunda função listada (`fn1`) que roda primeiro e depois a primeira função listada (`fn2`)? Em outras palavras, a função se compõe da direita para a esquerda.
 
-That may seem like a strange choice, but there are some reasons for it. Most typical FP libraries define their `compose(..)` to work right-to-left in terms of ordering, so we're sticking with that convention.
+Isso pode parecer uma escolha estranha, mas existem alguns motivos pra isso. A maioria das bibliotecas FP típicas definem seus `compose(..)` trabalhar da direita para a esquerda em termos de ordenação, então vamos manter essa convenção.
 
 But why? I think the easiest explanation (but perhaps not the most historically accurate) is that we're listing them to match the order they are written in code manually, or rather the order we encounter them when reading from left-to-right.
 
