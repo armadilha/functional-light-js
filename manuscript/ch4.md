@@ -158,37 +158,38 @@ Você percebeu que nós definimos a ordem dos parâmetros com `fn2, fn1`, e alé
 
 Isso pode parecer uma escolha estranha, mas existem alguns motivos pra isso. A maioria das bibliotecas FP típicas definem seus `compose(..)` trabalhar da direita para a esquerda em termos de ordenação, então vamos manter essa convenção.
 
-But why? I think the easiest explanation (but perhaps not the most historically accurate) is that we're listing them to match the order they are written in code manually, or rather the order we encounter them when reading from left-to-right.
+Mas porquê? Penso que a explicação mais fácil (mas talves não a mais historicamente precisa) é que os estamos listando para corresponder à ordem em que são escritos manualmente no código, ou mais precisamente, a ordem em que os encontramos ao ler da esquerda para a direita.
 
-`unique(words(str))` lists the functions in the left-to-right order `unique, words`, so we make our `compose2(..)` utility accept them in that order, too. The execution order is right-to-left, but the code order is left-to-right. Pay close attention to keep those distinct in your mind.
+`unique(words(str))` lista as funções da esquerda pra direita `unique, words`, então nós fazemos com que o nosso utilitário `compose(..)` os aceitem nesta ordem também. A ordem de execução é da direita para a esquerda, mas a ordem do código é da esquerda para a direita. Preste muita atenção nisso para mantê-los distintos na sua mente.
 
-Now, the more efficient definition of the candy making machine is:
+Agora, a definição mais eficiente da máquina de fazer doces é:
 
 ```js
 var uniqueWords = compose2( unique, words );
 ```
 
-### Composition Variation
+### Variação de composição
 
-It may seem like the `<-- unique <-- words` combination is the only order these two functions can be composed. But we could actually compose them in the opposite order to create a utility with a bit of a different purpose:
+Pode parecer que a combinação `<-- unique <-- words` é a única ordem em que estas duas funções podem ser compostas. Mas poderíamos na verdade, compor isto na ordem oposta para criar um utilitário com um propósito um pouco diferente:
 
 ```js
 var letters = compose2( words, unique );
 
-var chars = letters( "How are you Henry?" );
+var chars = letters( "Como vai você, Henry?" );
 chars;
 // ["h","o","w","a","r","e","y","u","n"]
 ```
 
-This works because the `words(..)` utility, for value-type safety sake, first coerces its input to a string using `String(..)`. So the array that `unique(..)` returns -- now the input to `words(..)` -- becomes the string `"H,o,w, ,a,r,e,y,u,n,?"`, and then the rest of the behavior in `words(..)` processes that string into the `chars` array.
+Isto funciona porque o utilitário `words(..)`, por uma questão de segurança do tipo valor, primeiro força sua entrada para uma string usando `String(..)`. Então o array que `unique(..)` retorna -- agora a entrada para `words(..)` -- se torna a string `"H,o,w, ,a,r,e,y,u,n ,?"`, e então o resto do comportamento em `words(..)` processa essa string no array `chars`.
 
-Admittedly, this is a contrived example. But the point is that function compositions are not always unidirectional. Sometimes we put the gray brick on top of the blue brick, and sometimes we put the blue brick on top.
+É certo que este é um exemplo inventado. Mas a questão é que as composições de funções nem sempre são unidirecionais. Às vezes colocamos o bloco do Lego cinza em cima do bloco azul e às vezes colocamos o azul por cima.
 
-The candy factory better be careful if they try to feed the wrapped candies into the machine that mixes and cools the chocolate!
+É melhor a fábrica de doces ter cuidado se tentarem colocar os doces embrulhados na máquina que mistura e resfriamento do chocolate!
 
-## General Composition
 
-If we can define the composition of two functions, we can just keep going to support composing any number of functions. The general data visualization flow for any number of functions being composed looks like this:
+## Composição geral
+
+Se definirmos a composição de duas funções, podemos continuar apoiando a composição de qualquer número de funções. O fluxo geral de visualização de dados para qualquer número de funções que estão sendo compostas é assim:
 
 ```txt
 finalValue <-- func1 <-- func2 <-- ... <-- funcN <-- origValue
@@ -198,11 +199,12 @@ finalValue <-- func1 <-- func2 <-- ... <-- funcN <-- origValue
     <img src="images/fig6.png" width="50%">
 </p>
 
-Now the candy factory owns the best machine of all: a machine that can take any number of separate smaller machines and spit out a big fancy machine that does every step in order. That's one heck of a candy operation! It's Willy Wonka's dream!
+Agora a fábrica de doces possui a melhor máquina de todas: uma máquina que pode pegar qualquer número de máquinas menores separada e produzir uma máquina grande e sofisticada que executa cada etapa em ordem.
+Essa é uma operação incrível de doces! É o sonho de Willy Wonka!
 
-We can implement a general `compose(..)` utility like this:
+Podemos implementar um utilitário `compose(..)` como este:
 
-<a name="generalcompose"></a>
+<a name="Composição geral"></a>
 
 ```js
 function compose(...fns) {
