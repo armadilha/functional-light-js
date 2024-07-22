@@ -1,4 +1,4 @@
-# Functional-Light JavaScript (JavaScript Funcional Leve)
+# Functional-Light JavaScript 
 # Capitulo 1: Por que Programação Funcional?
 
 > Programação Funcional: (substantivo) Aquele que nomeia variáveis "x", nomeia funções "f", e nomeia padrões de código "pré-promorfismo zigohistomórfico"
@@ -7,15 +7,15 @@
 >
 > https://twitter.com/jamesiry/status/598547781515485184
 
-Programação Funcional (PF) de forma alguma é um conceito novo. Ela esta presente em toda a historia da programação. Entretanto, e não tenho certeza se é justo dizer, mas... com certeza não parecia um conceito tão comum no mundo dos desenvolvedores até nos ultimos dez anos talvez. Acho que a Programação Funcional tem sido mais uma matéria acadêmica.
+Programação Funcional (FP) de forma alguma é um conceito novo. Ela esta presente em toda a historia da programação. Entretanto, e não tenho certeza se é justo dizer, mas... com certeza não parecia um conceito tão comum no mundo dos desenvolvedores até nos ultimos dez anos talvez. Acho que a Programação Funcional tem sido mais uma matéria acadêmica.
 
 No entanto tudo isso esta mudando. Uma onda de interesse está crescendo em torno da Programação funcional, não apenas no nível das linguagens, mas também nas bibliotecas e ferramentas. Você pode muito bem estar lendo este livro porque finalmente entendeu que programação funcional é algo que você não pode mais ignorar. Ou talvez você seja como eu e já tentou aprender programação funcional muitas vezes mas teve dificuldades em ler todos os termos ou notações matemáticas.
 
-O objetivo deste primeiro capítulo é responder perguntas como "Por que devo usar o estilo de P.F. no meu código?" e "Como este livro se compara ao que os outros dizem sobre P.F?". Depois de estabelecermos uma base, ao longo do livro descobriremos, peça por peça, as técnicas e os padrões para escrever JS no estilo "Funcional Leve".
+O objetivo deste primeiro capítulo é responder perguntas como "Por que devo usar o estilo de (FP) no meu código?" e "Como este livro se compara ao que os outros dizem sobre (FP)?". Depois de estabelecermos uma base, ao longo do livro descobriremos, peça por peça, as técnicas e os padrões para escrever JS no estilo "Funcional Leve".
 
-## At a Glance
+## Uma olhada
 
-Let's briefly illustrate the notion of "Functional-Light JavaScript" with a before-and-after snapshot of code. Consider:
+Vamos fazer uma pequena ilustração de "JavaScript Funcional-Light" com uma visão antes/depois de um código. Considere:
 
 ```js
 var numbers = [4,10,0,27,42,17,15,-6,58];
@@ -48,7 +48,7 @@ function outputMsg() {
 }
 ```
 
-Now consider a very different style that accomplishes exactly the same outcome:
+Agora considere um estilo muito diferente que alcança exatamente o mesmo resultado:
 
 ```js
 var sumOnlyFavorites = FP.compose( [
@@ -72,25 +72,25 @@ function sum(x,y) { return x + y; }
 function constructMsg(v) { return `The magic number is: ${v}`; }
 ```
 
-Once you understand FP and Functional-Light, this is likely how you'd *read* and mentally process that second snippet:
+Uma vez que você entende (FP) e "Funcional-Light", é provável que você *leia* e processe mentalmente esse segundo trecho:
 
-> We're first creating a function called `sumOnlyFavorites(..)` that's a combination of three other functions. We combine two filters, one checking if a value is greater-than-or-equal to 10 and one for less-than-or-equal to 20. Then we include the `sum(..)` reducer in the transducer composition. The resulting `sumOnlyFavorites(..)` function is a reducer that checks if a value passes both filters, and if so, adds the value to an accumulator value.
+> Primeiro estamos criando uma função chamada `sumOnlyFavorites(..)` que é uma combinação de três outras funções. Combinamos dois filtros, um verificando se o valor é maior ou igual a 10 e outro para menor ou igual a 20. Então incluímos o `sum(..)` reducer(redutor) na composição do transducer(transdutor). O resultado da função `sumOnlyFavorites(..)` é um reducer(redutor) que verifica se o valor passa em ambos os filtros e, em caso positivo, adiciona o valor a um accumulator(acumulador).
 >
-> Then we make another function called `printMagicNumber(..)` which first reduces a list of numbers using that `sumOnlyFavorites(..)` reducer we just defined, resulting in a sum of only numbers that passed the *favorite* checks. Then `printMagicNumber(..)` pipes that final sum into `constructMsg(..)`, which creates a string value that finally goes into `console.log(..)`.
+> Então criamos uma outra função chamada `printMagicNumber(..)` que primeiro reduces(reduz) uma lista de números favoritos usando o reducer(redutor) `sumOnlyFavorites(..)` que acabamos de definir, resultando em uma soma de apenas números que passaram na verificação de *favoritos*. Então `printMagicNumber(..)` canaliza essa soma final para `constructMsg(..)`, que cria um valor de string que finalmente irá para o `console.log(..)`.
 
-All those moving pieces *speak* to an FP developer in ways that likely seem highly unfamiliar to you right now. This book will help you *speak* that same kind of reasoning so that it's as readable to you as any other code, if not more so!
+Todas essas peças móveis *falam* com um desenvolvedor de programação funcional, de maneira que parecem bem "infamiliar" para vocês neste momento. Este livro irá ajuda-lo a *falar* este mesmo tipo de raciocínio para que este seja tão legível quanto qualquer outro código, se não até mais!
 
-A few other quick remarks about this code comparison:
+Algumas outras observações rápidas sobre esta comparação de código:
 
-* It's likely that for many readers, the former snippet feels closer to comfortable/readable/maintainable than the latter snippet. It's entirely OK if that's the case. You're in exactly the right spot. I'm confident that if you stick it out through the whole book, and practice everything we talk about, that second snippet will eventually become a lot more natural, maybe even preferable!
+* É provável que, para muitos leitores, o primeiro trecho pareça mais confortável/legível/de fácil manutenção do que o último trecho. Está tudo bem se for este o caso. Você esta exatamente no lugar certo. Tenho certeza de que se você persistir durante todo o livro e praticar tudo o que falamos, esse segundo trecho acabará se tornando muito mais natural, talvez até preferível!
 
-* You might have done the task significantly or entirely different from either snippet presented. That's OK, too. This book won't be prescriptive in dictating that you should do something a specific way. The goal is to illustrate the pros/cons of various patterns and enable you to make those decisions. By the end of this book, how you would approach the task may fall a little closer to the second snippet than it does right now.
+* Você pode ter executado a tarefa de forma significativa ou totalmente diferente de qualquer um dos trechos apresentados. Esta tudo OK, também. Este livro não será preescritivo ao ditar que você deve fazer algo de uma maneira específica. O objetivo é ilustrar os prós/contras de vários padrões e permitir que você tome essas decisões. Ao final deste livro, a forma como você abordaria a tarefa poderá ficar um pouco mais próxima do segundo trecho do que está agora.
 
-* It's also possible that you're already a seasoned FP developer who's scanning through the start of this book to see if it has anything useful for you to read. That second snippet certainly has some bits that are quite familiar. But I'm also betting that you thought, "Hmmm, I wouldn't have done it *that* way..." a couple of times. That's OK, and entirely reasonable.
+* Também é possível que você já seja um desenvolvedor experiente de FP e esteja lendo o início deste livro para ver se há algo útil para você. Esse segundo trecho certamente contém algumas partes que são bastante familiares. Mas também aposto que você pensou: "Hmm, eu não teria feito isso *assim*..." algumas vezes. Esta OK, e totalmente razoável.
 
-    This is not a traditional, canonical FP book. We'll at times seem quite heretical in our approaches. We're seeking to strike a pragmatic balance between the clear undeniable benefits of FP, and the need to ship workable, maintainable JS without having to tackle a daunting mountain of math/notation/terminology. This is not *your* FP, it's "Functional-Light JavaScript".
+    Este não é um livro tradicional e canônico de FP. Às vezes parecemos bastante heréticos em nossas abordagens. Estamos buscando encontrar um equilíbrio pragmatico entre os benefícios inegáveis da FP e a necessidade de fornecer JS viável e sustentável sem ter que enfrentar uma montanha assustadora de matemática/notação/terminologia. Esta não é a *sua* FP. é "Funcional-Light JavaScript".
 
-Whatever your reasons for reading this book, welcome!
+Quaisquer que sejam suas razões para ler este livro, seja bem-vindo!
 
 ## Confidence
 
