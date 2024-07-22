@@ -294,7 +294,7 @@ shorterWords( text );
 // ["to","two","pass","the","of","call","as"]
 ```
 
-Tire um momento para considerar qual é a aplicação parcial à direita `compose(..)` nos dá. Ela nos permite especificar antecipadamente a(s) primeira(s) etapa(s) de uma composição e, em seguida, criar variações especializadas dessa composição com diferentes etapas subsequentes (`biggerWords(..)` e `shorterWords(..)`). Esse é um dos truques mais poderosos do FP!
+Tire um momento para considerar o que a aplicação parcial à direita `compose(..)` nos dá. Ela nos permite especificar antecipadamente a(s) primeira(s) etapa(s) de uma composição e, em seguida, criar variações especializadas dessa composição com diferentes etapas subsequentes (`biggerWords(..)` e `shorterWords(..)`). Esse é um dos truques mais poderosos do FP!
 
 Você pode também `curry(..)` uma composição ao invés da aplicação parcial, embora por causa da ordem da direita para a esquerda, você possa querer `curry( reverseArgs(compose), ..)` com mais frequência em vez de apenas `curry ( compor, ..)` em si.
 
