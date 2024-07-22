@@ -27,7 +27,7 @@ arrayValue <-- map <-- unary <-- parseInt
 
 `parseInt` é a entrada para `unary(..)`. a saída de `unary(..)` é a entrada para `map(..)`. A saída de `map(..)` é `arrayValue`. Isto é a composição de `map(..)` e `unary(..)`.
 
-**Nota:** A orientação da direita para a esquerda aqui é proposital, embora possa parecer estranha neste ponto do seu aprendizado. Voltaremos para explicar isso mais detalhadamente mais tarde.
+**Observação:** A orientação da direita para a esquerda aqui é proposital, embora possa parecer estranha neste ponto do seu aprendizado. Voltaremos para explicar isso mais detalhadamente mais tarde.
 
 Pense neste fluxo de dados como uma esteira em uma loja de doces, onde cada operação é um passo no processo de resfriamento, corte e embalagem dos doces. Iremos usar a metáfora da loja de doces ao longo deste capítulo para explicar o que é composição.
 
@@ -100,7 +100,7 @@ O código equivalente a esta nova configuração da fábrica de doces precisa pu
 var wordsUsed = unique( words( text ) );
 ```
 
-**Nota:** Apesar de escrevermos uma chamada de função da esquerda para a direita -- `unique(..)` e então `words(..)` -- a ordem das operações serão na verdade mais da direita para a esquerda, ou de dentro para fora. `words(..)` irá rodar primeiro e depois `unique(..)`. Mais tarde falaremos sobre um padrão que combina a ordem de execução com a nossa leitura natural da esquerda para a direita, chamado `pipe(..)`.
+**Observação:** Apesar de escrevermos uma chamada de função da esquerda para a direita -- `unique(..)` e então `words(..)` -- a ordem das operações serão na verdade mais da direita para a esquerda, ou de dentro para fora. `words(..)` irá rodar primeiro e depois `unique(..)`. Mais tarde falaremos sobre um padrão que combina a ordem de execução com a nossa leitura natural da esquerda para a direita, chamado `pipe(..)`.
 
 As máquinas empilhadas estão funcionando bem, mas é meio desorganizado termos os fios pendurados por todo lado. Quanto mais máquinas empilhadas eles criarem, mais desordenado fica o andar da fábrica. E o esforço para montar e manter todas essas pilhas de máquinas consome muito tempo.
 
@@ -209,12 +209,12 @@ Podemos implementar um utilitário `compose(..)` como este:
 ```js
 function compose(...fns) {
     return function composed(result){
-        // copy the array of functions
+        // copiar o array das funções
         var list = [...fns];
 
         while (list.length > 0) {
-            // take the last function off the end of the list
-            // and execute it
+            // pegar a última função do final da lista
+            // e executar
             result = list.pop()( result );
         }
 
@@ -229,8 +229,8 @@ var compose =
             var list = [...fns];
 
             while (list.length > 0) {
-                // take the last function off the end of the list
-                // and execute it
+                // pegar a última função do final da lista
+                // e executar
                 result = list.pop()( result );
             }
 
@@ -238,9 +238,9 @@ var compose =
         };
 ```
 
-**Warning:** `fns` is a collected array of arguments, not a passed-in array, and as such, it's local to `compose(..)`. It may be tempting to think the `[...fns]` would thus be unnecessary. However, in this particular implementation, `.pop()` inside the inner `composed(..)` function is mutating the list, so if we didn't make a copy each time, the returned composed function could only be used reliably once. We'll revisit this hazard in [Chapter 6](ch6.md/#user-content-hiddenmutation).
+**Aviso:** `fns` é um array coletado de argumentos, não um array passado e, como tal, é local para `compose(..)`. Pode ser tentador pensar que `[...fns]` seria, portanto, desnecessário. Entretanto, nessa implementação em particular, `.pop()` dentro da função interna `composed(..)` está alterando a lista, então se não fizermos uma cópia de cada vez, a função composta retornada só poderá ser usada de forma confiável uma vez. Iremos abordar esse perigo mais uma vez no [Capítulo 6](ch6.md/#user-content-hiddenmutation).
 
-Now let's look at an example of composing more than two functions. Recalling our `uniqueWords(..)` composition example, let's add a `skipShortWords(..)` to the mix:
+Agora vamos olhar para um exemplo composto por mais de duas funções. Recordando nosso exemplo de composição `uniqueWords(..)`, adicionamos um `skipShortWords(..)` à mistura:
 
 ```js
 function skipShortWords(words) {
@@ -256,12 +256,12 @@ function skipShortWords(words) {
 }
 ```
 
-Let's define `biggerWords(..)` that includes `skipShortWords(..)`. The manual composition equivalent is `skipShortWords( unique( words( text ) ) )`, so let's do that with `compose(..)`:
+Vamos definir `biggerWords(..)` que inclui `skipShortWords(..)`. A composição manual equivalente é `skipShortWords( unique( words( text ) ) )`, então vamos fazer isso com `compose(..)`:
 
 ```js
-var text = "To compose two functions together, pass the \
-output of the first function call as the input of the \
-second function call.";
+var text = "Para compor duas funções juntas, passe a \
+saída da primeira chamada de função como a entrada da \
+segunda chamada de função.";
 
 var biggerWords = compose( skipShortWords, unique, words );
 
@@ -272,13 +272,13 @@ wordsUsed;
 // "function","input","second"]
 ```
 
-To do something more interesting with composition, let's use [`partialRight(..)`, which we first looked at in Chapter 3](ch3.md/#user-content-partialright). We can build a right-partial application of `compose(..)` itself, pre-specifying the second and third arguments (`unique(..)` and `words(..)`, respectively); we'll call it `filterWords(..)`.
+Para fazer alguma coisa mais interessante com a composição, vamos usar [`partialRight(..)`, que vimos pela primeira vez no Capítulo 3](ch3.md/#user-content-partialright). Podemos construir uma aplicação parcial à direita do próprio `compose(..)`, pré-especificando o segundo e terceiro argumentos (`unique(..)` e `words(..)`, respectivamente); vamos chamá-lo de `filterWords(..)`.
 
-Then, we can complete the composition multiple times by calling `filterWords(..)`, but with different first-arguments respectively:
+Então, podemos completar a composição várias vezes chamando `filterWords(..)`, mas com diferentes primeiros argumentos respectivamente:
 
 ```js
-// Note: uses a `<= 4` check instead of the `> 4` check
-// that `skipShortWords(..)` uses
+// Nota: usar um check `<= 4` ao invés de `> 4`
+// este `skipShortWords(..)` usa
 function skipLongWords(list) { /* .. */ }
 
 var filterWords = partialRight( compose, unique, words );
@@ -294,23 +294,25 @@ shorterWords( text );
 // ["to","two","pass","the","of","call","as"]
 ```
 
-Take a moment to consider what the right-partial application on `compose(..)` gives us. It allows us to specify ahead of time the first step(s) of a composition, and then create specialized variations of that composition with different subsequent steps (`biggerWords(..)` and `shorterWords(..)`). This is one of the most powerful tricks of FP!
+Tire um momento para considerar qual é a aplicação parcial à direita `compose(..)` nos dá. Ela nos permite especificar antecipadamente a(s) primeira(s) etapa(s) de uma composição e, em seguida, criar variações especializadas dessa composição com diferentes etapas subsequentes (`biggerWords(..)` e `shorterWords(..)`). Esse é um dos truques mais poderosos do FP!
 
-You can also `curry(..)` a composition instead of partial application, though because of right-to-left ordering, you might more often want to `curry( reverseArgs(compose), ..)` rather than just `curry( compose, ..)` itself.
+Você pode também `curry(..)` uma composição ao invés da aplicação parcial, embora por causa da ordem da direita para a esquerda, você possa querer `curry( reverseArgs(compose), ..)` com mais frequência em vez de apenas `curry ( compor, ..)` em si.
 
-**Note:** Because `curry(..)` (at least [the way we implemented it in Chapter 3](ch3.md/#user-content-curry)) relies on either detecting the arity (`length`) or having it manually specified, and `compose(..)` is a variadic function, you'll need to manually specify the intended arity like `curry(.. , 3)`.
 
-### Alternative Implementations
+**Observação:** Porque `curry(..)` (pelo menos [a maneira como o implementamos no Capítulo 3](ch3.md/#user-content-curry)) depende da detecção da aridade (`length` ) ou tê-lo especificado manualmente, e `compose(..)` é uma função variada, você precisará especificar manualmente a aridade pretendida como `curry(.. , 3)`.
 
-While you may very well never implement your own `compose(..)` to use in production, and rather just use a library's implementation as provided, I've found that understanding how it works under the covers actually helps solidify general FP concepts very well.
 
-So let's examine some different implementation options for `compose(..)`. We'll also see there are some pros/cons to each implementation, especially performance.
+### Implementações Alternativas
 
-We'll be looking at the [`reduce(..)` utility in detail in Chapter 9](ch9.md/#reduce), but for now, just know that it reduces a list (array) to a single finite value. It's like a fancy loop.
+Embora você possa nunca implementar seu próprio `compose(..)` para usar na produção, e sim apenas usar a implementação de uma biblioteca conforme fornecida, descobri que entender como funciona nos bastidores, na verdade ajuda a solidificar conceitos gerais de FP muito bem.
 
-For example, if you did an addition-reduction across a list of numbers (such as `[1,2,3,4,5,6]`), you'd loop over them adding them together as you go. The reduction would add `1` to `2`, and add that result to `3`, and then add that result to `4`, and so on, resulting in the final summation: `21`.
+Então, vamos examinar algumas opções diferentes de implementação para `compose(..)`. Veremos também que há alguns prós/contras em cada implementação, especialmente no desempenho.
 
-The original version of `compose(..)` uses a loop and eagerly (aka, immediately) calculates the result of one call to pass into the next call. This is a reduction of a list of functions, so we can do that same thing with `reduce(..)`:
+Veremos o utilitário [`reduce(..)` em detalhes no Capítulo 9](ch9.md/#reduce), mas por enquanto, saiba apenas que ele reduz uma lista (array) a um único valor finito . É como um loop sofisticado.
+
+Por exemplo, se você fizesse um addition-reduction em uma lista de números (como `[1,2,3,4,5,6]`), você faria um loop sobre eles, adicionando-os conforme avança. A redução adicionaria `1` a `2`, e adicionaria esse resultado a `3`, e então adicionaria esse resultado a `4`, e assim por diante, resultando na soma final: `21`.
+
+A versão original de `compose(..)` usa um loop e calcula ansiosamente (também conhecido como, imediatamente) o resultado de uma chamada para passar para a próxima chamada. Esta é uma redução de uma lista de funções, então podemos fazer a mesma coisa com `reduce(..)`:
 
 <a name="composereduce"></a>
 
