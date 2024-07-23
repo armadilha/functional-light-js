@@ -335,15 +335,15 @@ var compose = (...fns) =>
         );
 ```
 
-**Note:** This implementation of `compose(..)` uses `[...fns].reverse().reduce(..)` to reduce from right-to-left. We'll [revisit `compose(..)` in Chapter 9](ch9.md/#user-content-composereduceright), instead using `reduceRight(..)` for that purpose.
+**Observação:** Esta implementação de `compose(..)` usa `[...fns].reverse().reduce(..)` para reduzir da direita para a esquerda. Iremos [revisitar `compose(..)` no Capítulo 9](ch9.md/#user-content-composereduceright), em vez de usar `reduceRight(..)` para esse propósito.
 
-Notice that the `reduce(..)` looping happens each time the final `composed(..)` function is run, and that each intermediate `result(..)` is passed along to the next iteration as the input to the next call.
+Observe que o loop `reduce(..)` acontece cada vez que a função `composed(..)` final é executada, e que cada `result(..)` intermediário é passado para a próxima iteração como a entrada para o próxima chamada.
 
-The advantage of this implementation is that the code is more concise and also that it uses a well-known FP construct: `reduce(..)`. And the performance of this implementation is also similar to the original `for`-loop version.
+A vantagem desta implementação é que o código é mais conciso e também utiliza uma construção FP bem conhecida: `reduce(..)`. E o desempenho desta implementação também é semelhante ao da versão original do loop `for`.
 
-However, this implementation is limited in that the outer composed function (aka, the first function in the composition) can only receive a single argument. Most other implementations pass along all arguments to that first call. If every function in the composition is unary, this is no big deal. But if you need to pass multiple arguments to that first call, you'd want a different implementation.
+No entanto, esta implementação é limitada porque a função composta externa (também conhecida como a primeira função na composição) só pode receber um único argumento. A maioria das outras implementações passa todos os argumentos para a primeira chamada. Se todas as funções na composição forem unárias, isso não é grande coisa. Mas se você precisar passar vários argumentos para a primeira chamada, você vai preferir uma implementação diferente.
 
-To fix that first call single-argument limitation, we can still use `reduce(..)` but produce a lazy-evaluation function wrapping:
+Para corrigir a limitação de argumento único da primeira chamada, ainda podemos usar `reduce(..)`, mas produzir um encapsulamento de função de avaliação lenta:
 
 ```js
 function compose(...fns) {
@@ -363,25 +363,25 @@ var compose =
         );
 ```
 
-Notice that we return the result of the `reduce(..)` call directly, which is itself a function, not a computed result. *That* function lets us pass in as many arguments as we want, passing them all down the line to the first function call in the composition, then bubbling up each result through each subsequent call.
+Observe que retornamos o resultado da chamada `reduce(..)` diretamente, que é em si uma função, não um resultado computado. *Essa* função nos permite passar quantos argumentos quisermos, passando-os todos ao longo da linha para a primeira chamada de função na composição e, em seguida, aumentando cada resultado em cada chamada subsequente.
 
-Instead of calculating the running result and passing it along as the `reduce(..)` looping proceeds, this implementation runs the `reduce(..)` looping **once** up front at composition time, and defers all the function call calculations -- referred to as lazy calculation. Each partial result of the reduction is a successively more wrapped function.
+Em vez de calcular o resultado da execução e transmiti-lo à medida que o loop `reduce(..)` prossegue, esta implementação executa o loop `reduce(..)` **uma vez** antecipadamente no momento da composição e adia toda a função cálculos de chamada - chamados de cálculo lento. Cada resultado parcial da redução é uma função sucessivamente mais encapsulada.
 
-When you call the final composed function and provide one or more arguments, all the levels of the big nested function, from the inner most call to the outer, are executed in reverse succession (not via a loop).
+Quando você chama a função composta final e fornece um ou mais argumentos, todos os níveis da grande função aninhada, da chamada mais interna à mais externa, são executados em sucessão inversa (não por meio de um loop).
 
-The performance characteristics will potentially be different than in the previous `reduce(..)`-based implementation. Here, `reduce(..)` only runs once to produce a big composed function, and then this composed function call simply executes all its nested functions each call. In the former version, `reduce(..)` would be run for every call.
+As características de desempenho serão potencialmente diferentes das da implementação anterior baseada em `reduce(..)`. Aqui, `reduce(..)` é executado apenas uma vez para produzir uma grande função composta, e então esta chamada de função composta simplesmente executa todas as suas funções aninhadas a cada chamada. Na versão anterior, `reduce(..)` seria executado para cada chamada.
 
-Your mileage may vary on which implementation is better, but keep in mind that this latter implementation isn't limited in argument count the way the former one is.
+Sua milhagem pode variar dependendo de qual implementação é melhor, mas tenha em mente que esta última implementação não é limitada na contagem de argumentos como a anterior.
 
-We could also define `compose(..)` using recursion. The recursive definition for `compose(fn1,fn2, .. fnN)` would look like:
+Também poderíamos definir `compose(..)` usando recursão. A definição recursiva para `compose(fn1,fn2, .. fnN)` seria semelhante a:
 
 ```txt
 compose( compose(fn1,fn2, .. fnN-1), fnN );
 ```
 
-**Note:** We will cover recursion more fully in [Chapter 8](ch8.md), so if this approach seems confusing, don't worry for now. Or, go read that chapter then come back and re-read this note. :)
+**Observação:** Abordaremos a recursão mais detalhadamente no [Capítulo 8](ch8.md), portanto, se essa abordagem parecer confusa, não se preocupe por enquanto. Ou leia aquele capítulo e depois volte e releia esta nota. :)
 
-Here's how we implement `compose(..)` with recursion:
+Aqui está como implementamos `compose(..)` com recursão:
 
 ```js
 function compose(...fns) {
@@ -400,7 +400,7 @@ function compose(...fns) {
 // or the ES6 => form
 var compose =
     (...fns) => {
-        // pull off the last two arguments
+        // retira os dois últimos argumentos
         var [ fn1, fn2, ...rest ] = fns.reverse();
 
         var composedFn =
@@ -413,19 +413,19 @@ var compose =
     };
 ```
 
-I think the benefit of a recursive implementation is mostly conceptual. I personally find it much easier to think about a repetitive action in recursive terms instead of in a loop where I have to track the running result, so I prefer the code to express it that way.
+Acho que o benefício de uma implementação recursiva é principalmente conceitual. Pessoalmente, acho muito mais fácil pensar em uma ação repetitiva em termos recursivos, em vez de em um loop onde preciso rastrear o resultado da execução, por isso prefiro que o código o expresse dessa forma.
 
-Others will find the recursive approach quite a bit more daunting to mentally juggle. I invite you to make your own evaluations.
+Outros acharão a abordagem recursiva um pouco mais difícil de fazer malabarismos mentais. Convido você a fazer suas próprias avaliações.
 
-## Reordered Composition
+## Composição Reordenada
 
-We talked earlier about the right-to-left ordering of standard `compose(..)` implementations. The advantage is in listing the arguments (functions) in the same order they'd appear if doing the composition manually.
+Falamos anteriormente sobre a ordenação da direita para a esquerda das implementações padrão `compose(..)`. A vantagem está em listar os argumentos (funções) na mesma ordem em que apareceriam se a composição fosse feita manualmente.
 
-The disadvantage is they're listed in the reverse order that they execute, which could be confusing. It was also more awkward to have to use `partialRight(compose, ..)` to pre-specify the *first* function(s) to execute in the composition.
+A desvantagem é que eles estão listados na ordem inversa em que são executados, o que pode ser confuso. Também foi mais estranho ter que usar `partialRight(compose, ..)` para pré-especificar a(s) *primeira(s) função(ões) a serem executadas na composição.
 
-The reverse ordering, composing from left-to-right, has a common name: `pipe(..)`. This name is said to come from Unix/Linux land, where multiple programs are strung together by "pipe"ing (`|` operator) the output of the first one in as the input of the second, and so on (i.e., `ls -la | grep "foo" | less`).
+A ordem inversa, composta da esquerda para a direita, tem um nome comum: `pipe(..)`. Diz-se que esse nome vem da terra Unix/Linux, onde vários programas são encadeados "pipe" (operador `|`) a saída do primeiro como a entrada do segundo, e assim por diante (ou seja, `ls -la | grep "foo" | less`)
 
-`pipe(..)` is identical to `compose(..)` except it processes through the list of functions in left-to-right order:
+`pipe(..)` é idêntico a `compose(..)` exceto que processa a lista de funções na ordem da esquerda para a direita:
 
 ```js
 function pipe(...fns) {
@@ -443,29 +443,29 @@ function pipe(...fns) {
 }
 ```
 
-In fact, we could just define `pipe(..)` as the arguments-reversal of `compose(..)`:
+Na verdade, poderíamos apenas definir `pipe(..)` como a reversão de argumentos de `compose(..)`:
 
 ```js
 var pipe = reverseArgs( compose );
 ```
 
-That was easy!
+Essa foi fácil!
 
-Recall this example from general composition earlier:
+Lembre-se deste exemplo da composição geral anterior:
 
 ```js
 var biggerWords = compose( skipShortWords, unique, words );
 ```
 
-To express that with `pipe(..)`, we just reverse the order we list them in:
+Para expressar isso com `pipe(..)`, apenas invertemos a ordem em que os listamos:
 
 ```js
 var biggerWords = pipe( words, unique, skipShortWords );
 ```
 
-The advantage of `pipe(..)` is that it lists the functions in order of execution, which can sometimes reduce reader confusion. It may be simpler to read the code: `pipe( words, unique, skipShortWords )`, and recognize that it's executing `words(..)` first, then `unique(..)`, and finally `skipShortWords(..)`.
+A vantagem de `pipe(..)` é que ele lista as funções em ordem de execução, o que às vezes pode reduzir a confusão do leitor. Pode ser mais simples ler o código: `pipe(words, unique, skipShortWords )`, e reconhecer que ele está executando `words(..)` primeiro, depois `unique(..)`, e finalmente `skipShortWords(.. )`.
 
-`pipe(..)` is also handy if you're in a situation where you want to partially apply the *first* function(s) that execute. Earlier we did that with right-partial application of `compose(..)`.
+`pipe(..)` também é útil se você estiver em uma situação em que deseja aplicar parcialmente a(s) *primeira(s) função(ões) executada(s). Anteriormente fizemos isso com a aplicação parcial à direita de `compose(..)`.
 
 Compare:
 
@@ -477,17 +477,17 @@ var filterWords = partialRight( compose, unique, words );
 var filterWords = partial( pipe, words, unique );
 ```
 
-As you may recall from our first implementation of [`partialRight(..)` in Chapter 3](ch3.md/#user-content-partialright), it uses `reverseArgs(..)` under the covers, just as our `pipe(..)` now does. So we get the same result either way.
+Como você deve se lembrar de nossa primeira implementação de [`partialRight(..)` no Capítulo 3](ch3.md/#user-content-partialright), ele usa `reverseArgs(..)` nos bastidores, assim como nosso `pipe(..)` agora funciona. Portanto, obtemos o mesmo resultado de qualquer maneira.
 
-*In this specific case*, the slight performance advantage to using `pipe(..)` is, because we're not trying to preserve the right-to-left argument order of `compose(..)`, we don't need to reverse the argument order back, like we do inside `partialRight(..)`. So `partial(pipe, ..)` is a little more efficient here than `partialRight(compose, ..)`.
+*Neste caso específico*, a pequena vantagem de desempenho de usar `pipe(..)` é que, como não estamos tentando preservar a ordem dos argumentos da direita para a esquerda de `compose(..)`, não é necessário reverter a ordem dos argumentos, como fazemos dentro de `partialRight(..)`. Portanto `partial(pipe, ..)` é um pouco mais eficiente aqui do que `partialRight(compose, ..)`.
 
-## Abstraction
+## Abstração
 
-Abstraction plays heavily into our reasoning about composition, so let's examine it in more detail.
+A abstração desempenha um papel importante em nosso raciocínio sobre composição, então vamos examiná-la com mais detalhes.
 
-Similar to how partial application and currying (see [Chapter 3](ch3.md/#some-now-some-later)) allow a progression from generalized to specialized functions, we can abstract by pulling out the generality between two or more tasks. The general part is defined once, so as to avoid repetition. To perform each task's specialization, the general part is parameterized.
+Semelhante a como a aplicação parcial e o currying (consulte o [Capítulo 3](ch3.md/#some-now-some-later)) permitem uma progressão de funções generalizadas para funções especializadas, podemos abstrair extraindo a generalidade entre duas ou mais tarefas . A parte geral é definida uma vez, para evitar repetições. Para realizar a especialização de cada tarefa, a parte geral é parametrizada.
 
-For example, consider this (obviously contrived) code:
+Por exemplo, considere este código (obviamente inventado):
 
 ```js
 function saveComment(txt) {
