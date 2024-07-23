@@ -153,21 +153,21 @@ Além disso, o fluxo de dados através do segundo programa é explícito:
 3. Esse total é convertido em uma string de mensagem com `constructMsg(..)`.
 4. A string da mensagem é impressa no console com o `console.log(..)`.
 
-Você ainda pode achar que essa abordagem é complicada e que o tracho imperativo foi mais fácil de entender. Você está muito mais acostumado com isso; a familiaridade tem uma influência profunda em nossos julgamentos de legibilidade. No entanto, ao final deste livro, você terá internalizado os benefícios da abordagem declarativa do segundo trecho, e essa familiaridade dará vida à sua legigibilidade.
+Você ainda pode achar que essa abordagem é complicada e que o trecho imperativo foi mais fácil de entender. Você está muito mais acostumado com isso; a familiaridade tem uma influência profunda em nossos julgamentos de legibilidade. No entanto, ao final deste livro, você terá internalizado os benefícios da abordagem declarativa do segundo trecho, e essa familiaridade dará vida à sua legigibilidade.
 
 Eu sei que pedir para você acreditar nisso neste momento é um ato de fé.
 
 É preciso muito mais esforços, e às vezes mais código, para melhorar sua legibilidade, como estou sugerindo, para minimizar ou eliminar muitos dos erros que levam a bugs. Sinceramente, quando comecei a escrever este livro, nunca poderia ter escrito (ou mesmo compreendido completamente!) aquele segundo trecho. À medida que estou avançando em minha jornada de aprendizado, é mais natural e confortável.
 
-Se você espera a refatoração FP, como uma bala de prata mágica, transforme rapidamente seu código para ser mair gracioso, elegante, inteligente, resiliente e conciso -- e que será fácil no curto prazo -- infelizmente isso não é uma expectativa realista.
+Se você espera a refatoração FP, como uma bala de prata mágica, transforme rapidamente seu código para ser mais gracioso, elegante, inteligente, resiliente e conciso -- e que será fácil no curto prazo -- infelizmente isso não é uma expectativa realista.
 
 FP é uma maneira muito diferente de pensar sobre como o código deve ser estruturado, para tornar o fluxo de dados muito mais óbvio e para ajudar o leitor a seguir seu pensamento. Isso levará algum tempo. Este esforço vale eminintemente a pena, mas pode ser uma jornada árdua.
 
-Muitas vezes ainda preciso de várias tentativas para refatorar um trecho de código imperativo em um FP mais declarativo, antes de chegar a algo que seja claro o suficiente para eu entender mais tarde. Descobri que a conversão para FP é um processo iterativo lento, em vez de uma rápida mudança binária de um paradigma para outro.
+Muitas vezes ainda preciso de várias tentativas para refatorar um trecho de código imperativo em um FP mais declarativa, antes de chegar a algo que seja claro o suficiente para eu entender mais tarde. Descobri que a conversão para FP é um processo iterativo lento, em vez de uma rápida mudança binária de um paradigma para outro.
 
 Também aplico o teste "ensine mais tarde" a cada trecho de código que escrevo. Depois de escrever um trecho de código, deixo-o sozinho por algumas horas ou dias, depois volto e tento lê-lo com novos olhos e finjo que preciso ensiná-lo ou explicá-lo para outra pessoa. Normalmente fica atrapalhado e confuso nas primeiras passagens, então eu ajusto e repito!
 
-Não estou tentando diminuir seu ânimo. Eu realmente quero que você corte essaas ervas daninha. Estou feliz por ter feito isso. Posso finalmente começar a ver a linha se curvando para cima em direção a uma melhor legibilidade. O esforço valeu a pena. Valerá para você também.
+Não estou tentando diminuir seu ânimo. Eu realmente quero que você corte essas ervas daninha. Estou feliz por ter feito isso. Posso finalmente começar a ver a linha se curvando para cima em direção a uma melhor legibilidade. O esforço valeu a pena. Valerá para você também.
 
 ## Perspective
 
