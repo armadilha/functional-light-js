@@ -92,39 +92,39 @@ Algumas outras observações rápidas sobre esta comparação de código:
 
 Quaisquer que sejam suas razões para ler este livro, seja bem-vindo!
 
-## Confidence
+## Confiança
 
-I have a very simple premise that sort of underlies everything I do as a teacher of software development (in JavaScript): code that you cannot trust is code that you do not understand. The reverse is true also: code that you don't understand is code you can't trust. Furthermore, if you cannot trust or understand your code, then you can't have any confidence whatsoever that the code you write is suitable to the task. You run the program and basically just cross your fingers.
+Eu tenho uma premissa muito simples que fundamenta tudo que faço como professor de desenvolvimento de software (em JavaScript): código em que você não pode confiar é um código que você não entende. O inverso também é verdadeiro: código que você não entende é código em que você não pode confiar. Além disso, se você não pode confiar ou compreender seu código, não poderá ter qualquer confiança de que o código que você escreve é adequado para a tarefa. Você executa o programa e basicamente cruza os dedos.
 
-What do I mean by trust? I mean that you can verify, by reading and reasoning, not just executing, that you understand what a piece of code *will* do; you aren't just relying on what it *should* do. More often than is perhaps prudent, we tend to rely on running test suites to verify our programs' correctness. I don't mean to suggest tests are bad. But I do think we should aspire to be able to understand our code well enough that we know the test suite will pass before it runs.
+O que quero dizer com confiança? Quero dizer que você pode verificar, lendo e raciocinando, não apenas executando, que você entende o que um trecho de código *fará*; você não está apenas confiando no que ele *deveria* fazer. Mais frequentemente do que seria prudente, tendemos a confiar na execução de conjuntos de testes para verificar a correção de nossos programas. Não quero sugerir que os testes sejam ruins. Mas acho que devemos aspirar a entender nossos códigos bem o suficiente para sabermos que o conjunto de testes será aprovado antes de ser executado.
 
-The techniques that form the foundation of FP are designed from the mindset of having far more confidence over our programs just by reading them. Someone who understands FP, and who's disciplined enough to diligently use it throughout their programs, will write code that they **and others** can read and verify that the program will do what they want.
+As técnicas que constituem a base da FP são concebidas a partir  da mentatilade de ter muito mais confiança nos nossos programas apenas por lê-los. Alguém que entende de FP e que é disciplinado o suficiente para usá-la diligentemente em seus programas escreverá um código que eles **e outros** poderão ler e verificar se o programa fará o que deseja.
 
-Confidence is also increased when we use techniques that avoid or minimize likely sources of bugs. That's perhaps one of the biggest selling points of FP: FP programs often have fewer bugs, and the bugs that do exist are usually in more obvious places, so they're easier to find and fix. FP code tends to be more bug-resistant -- certainly not bug-proof, though.
+A confiança também aumenta quando usamos técnicas que evitam ou minimizam prováveis fontes de bugs. Esse é talvez um dos maiores argumentos de venda da FP: os programas geralmente têm menos bugs, e os bugs que exitem geralmente estão em lugares mais óbvios, por isso são mais fáceis de encontrar e corrigir. O código de programação funcional tende a ser mais resistente a bugs -- certamente não à prova de bugs.
 
-As you journey through this book, you will begin to develop more confidence in the code you write, because you will use patterns and practices that are already well proven; and you'll avoid the most common causes of program bugs!
+À medida que você avança neste livro, você começará a desenvolver mais confiança no código que escreve, porque você usará padrões e práticas já comprovadas; e você evitará as causas mais comuns de bugs de programa!
 
-## Communication
+## Comunicação
 
-Why is Functional Programming important? To answer that, we need to take a bigger step back and talk about why programming itself is important.
+Por que a Programação Funcional é importante? Para responder a isso, precisamos dar um passo atrás e falar sobre por que a programação em si é importante.
 
-It may surprise you to hear this, but I don't believe that code is primarily a set of instructions for the computer. Actually, I think the fact that code instructs the computer is almost a happy accident.
+Você pode ficar surpreso ao ouvir isso, mas não acredito que o código seja princimalmente um conjunto de intruções para o computador. Na verdade, acho que o fato de o código instruir o computador é quase um feliz acidente.
 
-I believe very deeply that the vastly more important role of code is as a means of communication with other human beings.
+Eu acredito profundamente que o papel mais importante do código é como meio de comunicação com outros seres humanos.
 
-You probably know by experience that an awful lot of your time spent "coding" is actually spent reading existing code. Very few of us are so privileged as to spend all or most of our time simply banging out all new code and never dealing with code that others (or our past selves) wrote.
+Você provavelmente sabe por experiência própria que muito do seu tempo gasto "codando" é, na verdade, gasto na leitura de código existente. Muito poucos de nós temos o privilégio de gastar todo ou a maior parte do nosso tempo simplesmente elaborando todos os novos códigos e nunca lidando com códigos que outros (ou nossos "eus" anteriores) escreveram.
 
-It's widely estimated that developers spend 70% of code maintenance time on reading to understand it. That is eye-opening. 70%. No wonder the global average for a programmer's lines of code written per day is about 10. We spend up to 7 hours of our day just reading the code to figure out where those 10 lines should go!
+É amplamente estimado que os desenvolvedores gastam 70% do tempo de manutenção do código lendo para entendê-lo. Isso é revelador. 70%. Não é de admirar que a média global de linhas de código escritas por dia por um programador seja cerca de 10 linhas. Passamos até 7 horas do nosso dia apenas lendo o código para descobrir onde essas 10 linhas devem ir!
 
-We need to focus a lot more on the readability of our code. And by the way, readability is not just about fewer characters. Readability is actually most impacted by familiarity.<a href="#user-content-footnote-1"><sup>1</sup></a>
+Precisamos nos concentrar muito mais na legibilidade do nosso código. E, a propósito, legibilidade não envolve apenas menos caracteres. A legibilidade é, na verdade, mais afetada pela familiaridade.<a href="#user-content-footnote-1"><sup>1</sup></a>
 
-If we are going to spend our time concerned with making code that will be more readable and understandable, FP is central in that effort. The principles of FP are well established, deeply studied and vetted, and provably verifiable. Taking the time to learn and employ these FP principles will ultimately lead to more readily and recognizably familiar code for you and others. The increase in code familiarity, and the expediency of that recognition, will improve code readability.
+Se vamos gastar nosso tempo procupados em criar código que seja mais legível e compeensível, a FP é fundamental nesse esforço. Os princípios da FP estão bem estabelecidos, profundamente estudados e avaliados, e comprovadamente verificáveis. Reservar um tempo para aprender e empregar esses princípios de FP resultará em um código mais fácil e reconhecidamente familiar para você e outras pessoas. O aumento na familiaridade com código e a conveniência desse reconhecimento melhorarão a legibilidade do código.
 
-For example, once you learn what `map(..)` does, you'll be able to almost instantly spot and understand it when you see it in any program. But every time you see a `for` loop, you're going to have to read the whole loop to understand it. The syntax of the `for` loop may be familiar, but the substance of what it's doing is not; that has to be *read*, every time.
+Por exemplo, depois de aprender o que `map(..)` faz, você será capaz de identificá-lo e entendê-lo quase instantaneamente quando o vir em qualquer programa. Mas toda vez que você ver um loop `for`, você terá que ler o loop inteiro para entendê-lo. A sintaxe do loop `for` pode ser familiar, mas a "substância" do que ele está fazendo não é; isso tem que ser *lido*, sempre.
 
-By having more code that's recognizable at a glance, and thus spending less time figuring out what the code is doing, our focus is freed up to think about the higher levels of program logic; this is the important stuff that most needs our attention anyway.
+Ao ter mais código reconhecível à primeira vista e, assim, gastar menos tempo descobrindo o que o código está fazendo, nosso foco fica liberado para pensar nos níveis mais elevados da lógica do programa; de qualquer maneira, essa é a coisa mais importante que precisa de nossa atenção.
 
-FP (at least, without all the terminology weighing it down) is one of the most effective tools for crafting readable code. *That* is why it's so important.
+FP (pelo menos, sem pensar em toda a terminologia) é uma das ferramentas mais eficazes para criar código legível. *É* por isso que é tão importante.
 
 ## Readability
 
