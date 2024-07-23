@@ -126,48 +126,48 @@ Ao ter mais código reconhecível à primeira vista e, assim, gastar menos tempo
 
 FP (pelo menos, sem pensar em toda a terminologia) é uma das ferramentas mais eficazes para criar código legível. *É* por isso que é tão importante.
 
-## Readability
+## Legibilidade
 
-Readability is not a binary characteristic. It's a largely subjective human factor describing our relationship to code. And it will naturally vary over time as our skills and understanding evolve. I have experienced effects similar to the following figure, and anecdotally many others I've talked to have as well.
+A legibilidade não é uma característica binária. É um fator humano amplamente subjetivo que descreve nossa relação com o código. E isso irá naturalmente variar ao longo do tempo, à medida que nossas habilidades e compreensão evoluem. Experimentei efeitos semelhantes aos da figura a seguir e, curiosamente, muitos outros com quem conversei também.
 
 <p align="center">
     <img src="images/fig17.png" width="50%">
 </p>
 
-You may just find yourself experiencing similar effects as you work through the book. But take heart; if you stick this out, the curve comes back up!
+Você pode experimentar efeitos semelhantes à medida que lê o livro. Mas tenha coragem; se você persistir, a curva volta a subir!
 
-*Imperative* describes the code most of us probably already write naturally; it's focused on precisely instructing the computer *how* to do something. Declarative code -- the kind we'll be learning to write, which adheres to FP principles -- is code that's more focused on describing the *what* outcome.
+*Imperativo* descreve o código que a maioria de nós provavelmente já escreve naturalmente; seu foco é instruir precisamente o computador "*como*" fazer algo. Código declarativo -- o tipo que aprenderemos a escrever, que segue os princípios de FP -- é um código mais focado em descrever "*o que*" resultado.
 
-Let's revisit the two code snippets presented earlier in this chapter.
+Vamos revisitar os dois trechos de código apresentados anteriormente neste capítulo.
 
-The first snippet is imperative, focused almost entirely on *how* to do the tasks; it's littered with `if` statements, `for` loops, temporary variables, reassignments, value mutations, function calls with side effects, and implicit data flow between functions. You certainly *can* trace through its logic to see how the numbers flow and change to the end state, but it's not at all clear or straightforward.
+O primeiro trecho é imperativo, focado quase inteiramente em *como* realizar as tarefas; está repleto de intruções `if`, loops `for`, varíaveis temporárias, reatribuições, mutações de valores, chamadas de função com efeitos colaterais e fluxo de dados implícito entre funções. Você certamente *pode* rastrear sua lógica para ver como os números fluem e mudam para o estado final, mas isso não é nada claro ou direto.
 
-The second snippet is more declarative; it does away with most of those aforementioned imperative techniques. Notice there's no explicit conditionals, loops, side effects, reassignments, or mutations; instead, it employs well-known (to the FP world, anyway!) and trustable patterns like filtering, reduction, transducing, and composition. The focus shifts from low-level *how* to higher level *what* outcomes.
+O segundo trecho é mais declarativo; elimina a maioria das técnicas imperativas mencionadas acima. Observe que não há condicionais, loops, efeitos colaterais, reatribuições ou mutações explícitas; em vez disso, ele emprega padrões bem conhecidos (pelo menos para o mundo da FP!) e confiáveis, como filtragem, redução, transdução e composição. O foco muda do nível inferior de "*como*" para o nível superior de "*quais*" resultados.
 
-Instead of messing with an `if` statement to test a number, we delegate that to a well-known FP utility like `gte(..)` (greater-than-or-equal-to), and then focus on the more important task of combining that filter with another filter and a summation function.
+Em vez de mexer com uma instrução `if` para testar um número, delegamos isso a um utilitário da FP bem conhecido como `gte(..)` (maior que ou igual a) e então nos concentramos na tarefa mais importante de combinar esse filtro com outro filtro e uma fução de soma.
 
-Moreover, the flow of data through the second program is explicit:
+Além disso, o fluxo de dados através do segundo programa é explícito:
 
-1. A list of numbers goes into `printMagicNumber(..)`.
-2. One at a time those numbers are processed by `sumOnlyFavorites(..)`, resulting in a single number total of only our favorite kinds of numbers.
-3. That total is converted to a message string with `constructMsg(..)`.
-4. The message string is printed to the console with `console.log(..)`.
+1. Uma lista de números vai para `printMagicNumber(..)`.
+2. Um de cada vez, esses números são processados por `sumOnlyFavorites(..)`, resultando em um número unico através da soma dos números favoritos.
+3. Esse total é convertido em uma string de mensagem com `constructMsg(..)`.
+4. A string da mensagem é impressa no console com o `console.log(..)`.
 
-You may still feel this approach is convoluted, and that the imperative snippet was easier to understand. You're much more accustomed to it; familiarity has a profound influence on our judgments of readability. By the end of this book, though, you will have internalized the benefits of the second snippet's declarative approach, and that familiarity will spring its readability to life.
+Você ainda pode achar que essa abordagem é complicada e que o tracho imperativo foi mais fácil de entender. Você está muito mais acostumado com isso; a familiaridade tem uma influência profunda em nossos julgamentos de legibilidade. No entanto, ao final deste livro, você terá internalizado os benefícios da abordagem declarativa do segundo trecho, e essa familiaridade dará vida à sua legigibilidade.
 
-I know asking you to believe that at this point is a leap of faith.
+Eu sei que pedir para você acreditar nisso neste momento é um ato de fé.
 
-It takes a lot more effort, and sometimes more code, to improve its readability as I'm suggesting, and to minimize or eliminate many of the mistakes that lead to bugs. Quite honestly, when I started writing this book, I could never have written (or even fully understood!) that second snippet. As I'm now further along on my journey of learning, it's more natural and comfortable.
+É preciso muito mais esforços, e às vezes mais código, para melhorar sua legibilidade, como estou sugerindo, para minimizar ou eliminar muitos dos erros que levam a bugs. Sinceramente, quando comecei a escrever este livro, nunca poderia ter escrito (ou mesmo compreendido completamente!) aquele segundo trecho. À medida que estou avançando em minha jornada de aprendizado, é mais natural e confortável.
 
-If you're hoping that FP refactoring, like a magic silver bullet, will quickly transform your code to be more graceful, elegant, clever, resilient, and concise -- that it will come easy in the short term -- unfortunately that's just not a realistic expectation.
+Se você espera a refatoração FP, como uma bala de prata mágica, transforme rapidamente seu código para ser mair gracioso, elegante, inteligente, resiliente e conciso -- e que será fácil no curto prazo -- infelizmente isso não é uma expectativa realista.
 
-FP is a very different way of thinking about how code should be structured, to make the flow of data much more obvious and to help your reader follow your thinking. It will take time. This effort is eminently worthwhile, but it can be an arduous journey.
+FP é uma maneira muito diferente de pensar sobre como o código deve ser estruturado, para tornar o fluxo de dados muito mais óbvio e para ajudar o leitor a seguir seu pensamento. Isso levará algum tempo. Este esforço vale eminintemente a pena, mas pode ser uma jornada árdua.
 
-It still often takes me multiple attempts at refactoring a snippet of imperative code into more declarative FP, before I end up with something that's clear enough for me to understand later. I've found converting to FP is a slow iterative process rather than a quick binary flip from one paradigm to another.
+Muitas vezes ainda preciso de várias tentativas para refatorar um trecho de código imperativo em um FP mais declarativo, antes de chegar a algo que seja claro o suficiente para eu entender mais tarde. Descobri que a conversão para FP é um processo iterativo lento, em vez de uma rápida mudança binária de um paradigma para outro.
 
-I also apply the "teach it later" test to every piece of code I write. After I've written a piece of code, I leave it alone for a few hours or days, then come back and try to read it with fresh eyes, and pretend as if I need to teach or explain it to someone else. Usually, it's jumbled and confusing the first few passes, so I tweak it and repeat!
+Também aplico o teste "ensine mais tarde" a cada trecho de código que escrevo. Depois de escrever um trecho de código, deixo-o sozinho por algumas horas ou dias, depois volto e tento lê-lo com novos olhos e finjo que preciso ensiná-lo ou explicá-lo para outra pessoa. Normalmente fica atrapalhado e confuso nas primeiras passagens, então eu ajusto e repito!
 
-I'm not trying to dampen your spirits. I really want you to hack through these weeds. I am glad I did it. I can finally start to see the curve bending upward toward improved readability. The effort has been worth it. It will be for you, too.
+Não estou tentando diminuir seu ânimo. Eu realmente quero que você corte essaas ervas daninha. Estou feliz por ter feito isso. Posso finalmente começar a ver a linha se curvando para cima em direção a uma melhor legibilidade. O esforço valeu a pena. Valerá para você também.
 
 ## Perspective
 
