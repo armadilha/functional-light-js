@@ -169,19 +169,19 @@ Também aplico o teste "ensine mais tarde" a cada trecho de código que escrevo.
 
 Não estou tentando diminuir seu ânimo. Eu realmente quero que você corte essas ervas daninha. Estou feliz por ter feito isso. Posso finalmente começar a ver a linha se curvando para cima em direção a uma melhor legibilidade. O esforço valeu a pena. Valerá para você também.
 
-## Perspective
+## Perspectiva
 
-Most other FP texts seem to take a top-down approach, but we're going to go the opposite direction: working from the ground up, we'll uncover the basic foundational principles that I believe formal FPers would admit are the scaffolding for everything they do. But for the most part we'll stay arm's length away from most of the intimidating terminology or mathematical notation that can so easily frustrate learners.
+A maioria dos outros textos de FP parecem adotar uma abordagem de cima para baixo, mas iremos na direção oposta: trabalhando desde o chão, descobriremos os princípios básicos fundamentais que acredito que os "FPers" formais admitiriam serem a base para tudo que eles fazem. Mas, na maioria das vezes, ficaremos distantes da maior parte da terminologia intimidadora ou da notação matemática que pode facilmente frustar os alunos.
 
-I believe it's less important what you call something and more important that you understand what it is and how it works. That's not to say there's no importance to shared terminology -- it undoubtedly eases communication among seasoned professionals. But for the learner, I've found it can be distracting.
+Acredito que é menos importante como você chama algo e mais importante que você entenda o que é e como funciona. Isso não quer dizer que não haja importância na terminologia compartilhada -- ela sem dúvida facilita a comunicação entre profissionais experientes. Mas para o aluno, descobri que iso pode distrair.
 
-So this book will try to focus more on the base concepts and less on the fancy fluff. That's not to say there won't be terminology; there definitely will be. But don't get too wrapped up in the sophisticated words. Wherever necessary, look beyond them to the ideas.
+Portanto, este livro tentará focar mais nos conceitos básicos e menos nos detalhes sofisticados. Isso não quer dizer que não haverá terminologia; definitivamente haverá. Mas não fique muito envolvido com palavras sofisticadas. Sempre que necessário, olhe além delas para as ideias.
 
-I call the less formal practice herein "Functional-Light Programming" because I think where the formalism of true FP suffers is that it can be quite overwhelming if you're not already accustomed to formal thought. I'm not just guessing; this is my own personal story. Even after teaching FP and writing this book, I can still say that the formalism of terms and notation in FP is very, very difficult for me to process. I've tried, and tried, and I can't seem to get through much of it.
+Eu chamo a prática menos formal aqui de "Funcional-Light Programming" porque acho que onde o formalismo do verdadeiro FP sofre é que ele pode ser bastante opressor se você ainda não estiver acostumado com o pensamento formal. Não estou apenas supondo; esta é a minha história pessoal. Mesmo depois de ensionar FP e escrever este livro, ainda posso dizer que o formalismo dos termos e da notação em FP é muito, muito difícil de processar. Eu tentei, e tentei, e não consigo passar muito disso.
 
-I know many FPers who believe that the formalism itself helps learning. But I think there's clearly a cliff where that only becomes true once you reach a certain comfort with the formalism. If you happen to already have a math background or even some flavors of CS experience, this may come more naturally to you. But some of us don't, and no matter how hard we try, the formalism keeps getting in the way.
+Eu conheço muitos "FPers" que acreditam que o próprio formalismo ajuda no aprendizado. Mas acho que há claramente um precipício onde isso só se torna verdade quando você alcança um certo conforto com o formalismo. Se acontecer de você já ter formação em matemática ou até mesmo alguma experiência em CS, isso pode ser mais natural para você. Mas alguns de nós não, e por mais que tentemos, o formalismo continua a atrapalhar.
 
-So this book introduces the concepts that I believe FP is built on, but comes at it by giving you a boost from below to climb up the cliff wall, rather than condescendingly shouting down at you from the top, prodding you to just figure out how to climb as you go.
+Portanto, este livro apresenta os conceitos sobre os quais acredito que a FP se baseia, mas aborda isso dando-lhe um impulso de baixo para escalar a parede do penhasco, em vez de gritar condescendentemente com você do topo, incitando-o a descobrir como para subir conforme você avança.
 
 ## How to Find Balance
 
