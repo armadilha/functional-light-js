@@ -503,9 +503,9 @@ function trackEvent(evt) {
 }
 ```
 
-Both of these utilities are storing a value in a data source. That's the generality. The specialty is that one of them sticks the value at the end of an array, while the other sets the value at a property name of an object.
+Ambos os utilitários armazenam um valor em uma fonte de dados. Essa é a generalidade. A especialidade é que um deles coloca o valor no final de um array, enquanto o outro define o valor no nome de uma propriedade de um objeto.
 
-So let's abstract:
+Então vamos abstrair:
 
 ```js
 function storeData(store,location,value) {
@@ -525,13 +525,14 @@ function trackEvent(evt) {
 }
 ```
 
-The general task of referencing a property on an object (or array, thanks to JS's convenient operator overloading of `[ ]`) and setting its value is abstracted into its own function `storeData(..)`. While this utility only has a single line of code right now, one could envision other general behavior that was common across both tasks, such as generating a unique numeric ID or storing a timestamp with the value.
+A tarefa geral de referenciar uma propriedade em um objeto (ou array, graças à conveniente sobrecarga do operador `[ ]` do JS) e definir seu valor é abstraída em sua própria função `storeData(..)`. Embora este utilitário tenha apenas uma única linha de código no momento, pode-se imaginar outro comportamento geral que era comum em ambas as tarefas, como gerar um ID numérico exclusivo ou armazenar um carimbo de data/hora com o valor.
 
-If we repeat the common general behavior in multiple places, we run the maintenance risk of changing some instances but forgetting to change others. There's a principle at play in this kind of abstraction, often referred to as "don't repeat yourself" (DRY).
+Se repetirmos o comportamento geral comum em vários lugares, corremos o risco de manutenção de alterar algumas instâncias, mas esquecer de alterar outras. Há um princípio em jogo nesse tipo de abstração, muitas vezes referido como “Don't Repeat Yourself” (DRY).
 
-DRY strives to have only one definition in a program for any given task. An alternative aphorism to motivate DRY coding is that programmers are just generally lazy and don't want to do unnecessary work.
+DRY se esforça para ter apenas uma definição em um programa para qualquer tarefa. Um aforismo alternativo para motivar a codificação DRY é que os programadores geralmente são preguiçosos e não querem fazer trabalho desnecessário.
 
-Abstraction can be taken too far. Consider:
+A abstração pode ser levada ainda mais longe. Considere:
+
 
 ```js
 function conditionallyStoreData(store,location,value,checkFn) {
@@ -557,45 +558,45 @@ function trackEvent(evt) {
 }
 ```
 
-In an effort to be DRY and avoid repeating an `if` statement, we moved the conditional into the general abstraction. We also assumed that we *may* have checks for non-empty strings or non-`undefined` values elsewhere in the program in the future, so we might as well DRY those out, too!
+Em um esforço para ser DRY e evitar a repetição de uma instrução `if`, movemos a condicional para a abstração geral. Também presumimos que *podemos* ter verificações de strings não vazias ou valores não `indefinidos` em outras partes do programa no futuro, então podemos ser "DRY" também!
 
-This code *is* more DRY, but to an overkill extent. Programmers must be careful to apply the appropriate levels of abstraction to each part of their program, no more, no less.
+Este código *é* mais "DRY", mas de forma exagerada. Os programadores devem ter o cuidado de aplicar os níveis apropriados de abstração a cada parte do seu programa, nem mais, nem menos.
 
-Regarding our greater discussion of function composition in this chapter, it might seem like its benefit is this kind of DRY abstraction. But let's not jump to that conclusion, because I think composition actually serves a more important purpose in our code.
+Com relação à nossa discussão mais ampla sobre composição de funções neste capítulo, pode parecer que seu benefício é esse tipo de abstração DRY. Mas não vamos tirar conclusões precipitadas, porque acho que a composição na verdade serve a um propósito mais importante em nosso código.
 
-Moreover, **composition is helpful even if there's only one occurrence of something** (no repetition to DRY out).
+Além disso, **a composição é útil mesmo se houver apenas uma ocorrência de algo** (sem repetição para DRY).
 
-### Separation Enables Focus
+### Separação permite foco
 
-Aside from generalization vs. specialization, I think there's another more useful definition for abstraction, as revealed by this quote:
+Além de generalização versus especialização, acho que há outra definição mais útil para abstração, conforme revelado por esta citação:
 
-> ... abstraction is a process by which the programmer associates a name with a potentially complicated program fragment, which can then be thought of in terms of its purpose of function, rather than in terms of how that function is achieved. By hiding irrelevant details, abstraction reduces conceptual complexity, making it possible for the programmer to focus on a manageable subset of the program text at any particular time.
+> ... abstração é um processo pelo qual o programador associa um nome a um fragmento de programa potencialmente complicado, que pode então ser pensado em termos de seu propósito de função, e não em termos de como essa função é alcançada. Ao ocultar detalhes irrelevantes, a abstração reduz a complexidade conceitual, possibilitando ao programador focar em um subconjunto gerenciável do texto do programa a qualquer momento específico.
 >
 > Michael L. Scott, Programming Language Pragmatics<a href="#user-content-footnote-1"><sup>1</sup></a>
 
-The point this quote makes is that abstraction -- generally, pulling out some piece of code into its own function -- serves the primary purpose of separating apart two pieces of functionality so that it's possible to focus on each piece independently of the other.
+O que esta citação enfatiza é que a abstração -- geralmente, extrai algum pedaço de código em sua própria função -- serve ao propósito principal de separar duas partes de funcionalidade para que seja possível focar em cada parte independentemente da outra.
 
-Note that abstraction in this sense is not really intended to *hide* details, as if to treat things as black boxes we *never* examine.
+Observe que a abstração, nesse sentido, não tem a intenção de *ocultar* detalhes, como se tratasse as coisas como caixas pretas que *nunca* examinamos.
 
-In this quote, "irrelevant", in terms of what is hidden, shouldn't be thought of as an absolute qualitative judgement, but rather relative to what you want to focus on at any given moment. In other words, when we separate X from Y, if I want to focus on X, Y is irrelevant at that moment. At another time, if I want to focus on Y, X is irrelevant at that moment.
+Nesta citação, “irrelevante”, em termos do que está oculto, não deve ser pensado como um julgamento qualitativo absoluto, mas sim relativo ao que se deseja focar em um determinado momento. Ou seja, quando separamos X de Y, se quero focar em X, Y é irrelevante naquele momento. Em outro momento, se eu quiser focar em Y, X é irrelevante naquele momento.
 
-**We're not abstracting to hide details; we're separating details to improve focus.**
+**Não estamos abstraindo para ocultar detalhes; estamos separando detalhes para melhorar o foco.**
 
-Recall that at the outset of this book I stated that FP's goal is to create code that is more readable and understandable. One effective way of doing that is untangling complected (read: tightly braided, as in strands of rope) code into separate, simpler (read: loosely bound) pieces of code. In that way, the reader isn't distracted by the details of one part while looking for the details of the other part.
+Lembre-se de que no início deste livro afirmei que o objetivo do FP é criar código que seja mais legível e compreensível. Uma maneira eficaz de fazer isso é desembaraçar código complexo (leia-se: fortemente trançado, como em fios de corda) em pedaços de código separados e mais simples (leia-se: fracamente ligados). Dessa forma, o leitor não se distrai com os detalhes de uma parte enquanto procura os detalhes da outra.
 
-Our higher goal is not to implement something only once, as it is with the DRY mindset. As a matter of fact, sometimes we'll actually repeat ourselves in code.
+Nosso objetivo maior não é implementar algo apenas uma vez, como acontece com a mentalidade DRY. Na verdade, às vezes nos repetiremos no código.
 
-As we [asserted in Chapter 3](ch3.md/#why-currying-and-partial-application), the main goal with abstraction is to implement separate things, separately. We're trying to improve focus, because that improves readability.
+Como [afirmamos no Capítulo 3](ch3.md/#why-currying-and-partial-application), o principal objetivo da abstração é implementar coisas separadas, separadamente. Estamos tentando melhorar o foco, porque isso melhora a legibilidade.
 
-By separating two ideas, we insert a semantic boundary between them, which affords us the ability to focus on each side independent of the other. In many cases, that semantic boundary is something like the name of a function. The function's implementation is focused on *how* to compute something, and the call-site using that function by name is focused on *what* to do with its output. We abstract the *how* from the *what* so they are separate and separately reason'able.
+Ao separar duas ideias, inserimos uma fronteira semântica entre elas, o que nos permite focar em cada lado independentemente do outro. Em muitos casos, esse limite semântico é algo como o nome de uma função. A implementação da função está focada em *como* calcular algo, e o site de chamada que usa essa função pelo nome está focado em *o que* fazer com sua saída. Abstraímos o *como* do *o quê* para que sejam separados e separadamente razoáveis.
 
-Another way of describing this goal is with imperative vs. declarative programming style. Imperative code is primarily concerned with explicitly stating *how* to accomplish a task. Declarative code states *what* the outcome should be, and leaves the implementation to some other responsibility.
+Outra maneira de descrever esse objetivo é com estilo de programação imperativo versus declarativo. O código imperativo se preocupa principalmente em declarar explicitamente *como* realizar uma tarefa. O código declarativo declara *qual* deve ser o resultado e deixa a implementação para alguma outra responsabilidade.
 
-Declarative code abstracts the *what* from the *how*. Typically declarative coding is favored in readability over imperative, though no program (except of course machine code 1s and 0s) is ever entirely one or the other. The programmer must seek balance between them.
+O código declarativo abstrai o *o quê* do *como*. Normalmente, a codificação declarativa é favorecida em termos de legibilidade em vez da imperativa, embora nenhum programa (exceto, é claro, o código de máquina 1s e 0s) seja inteiramente um ou outro. O programador deve buscar o equilíbrio entre eles.
 
-ES6 added many syntactic affordances that transform old imperative operations into newer declarative forms. Perhaps one of the clearest is destructuring. Destructuring is a pattern for assignment that describes how a compound value (object, array) is taken apart into its constituent values.
+ES6 adicionou muitas possibilidades sintáticas que transformam antigas operações imperativas em formas declarativas mais recentes. Talvez uma das mais claras seja a desestruturação. A desestruturação é um padrão de atribuição que descreve como um valor composto (objeto, matriz) é desmontado em seus valores constituintes.
 
-Here's an example of array destructuring:
+Aqui está um exemplo de array desestruturado:
 
 ```js
 function getData() {
