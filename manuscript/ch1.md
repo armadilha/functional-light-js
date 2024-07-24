@@ -183,37 +183,37 @@ Eu conheço muitos "FPers" que acreditam que o próprio formalismo ajuda no apre
 
 Portanto, este livro apresenta os conceitos sobre os quais acredito que a FP se baseia, mas aborda isso dando-lhe um impulso de baixo para escalar a parede do penhasco, em vez de gritar condescendentemente com você do topo, incitando-o a descobrir como para subir conforme você avança.
 
-## How to Find Balance
+## Como encontrar o equilíbrio
 
-If you've been around programming for very long, chances are you've heard the phrase "YAGNI" before: "You Ain't Gonna Need It". This principle primarily comes from extreme programming, and stresses the high risk and cost of building a feature before it's needed.
+Se você já programa há muito tempo, é provável que já tenha ouvido a frase "YAGNI" antes: "You Ain't Gonna Need It" ("Você não vai precisar disso"). Este princípio vem principalmente da programação extrema e enfatiza o alto risco e custo de construir um recurso antes que ele seja necessário.
 
-Sometimes we guess we'll need a feature in the future, build it now believing it'll be easier to do as we build other stuff, then realize we guessed wrong and the feature wasn't needed, or needed to be quite different. Other times we guess right, but build a feature too early, and suck up time from the features that are genuinely needed now; we incur an opportunity cost in diluting our energy.
+Às vezes achamos que precisaremos de um recurso no futuro, construímos ele agora acreditando que será mais fácil de fazer à medida que construímos outras coisas, então percebemos que acreditamos errado e que o recurso não era necessário ou precisava ser bem diferente. Outras vezes, acertamos, mas criamos um recurso muito cedo e perdemos tempo com os recursos que são realmente necessários agora; incorremos num custo de oportunidade ao diluir a nossa energia.
 
-YAGNI challenges us to remember: even if it's counterintuitive in a situation, we often should postpone building something until it's presently needed. We tend to exaggerate our mental estimates of the future refactoring cost of adding it later when it is needed. Odds are, it won't be as hard to do later as we might assume.
+YAGNI desafia-nós a lembrar: mesmo que seja contra-intuitivo numa situação, muitas vezes devemos adiar a construção de algo até que seja necessário no momento. Tendemos a exagerar nossas estimativas mentais do custo futuro de refatoração, adicionando-o mais tarde, quando for necessário. As probabilidades são de que não será tão dificíl de fazer mais tarde como podemos supor.
 
-As it applies to functional programming, I would offer this admonition: there will be plenty of interesting and compelling patterns discussed in this text, but just because you find some pattern exciting to apply, it may not necessarily be appropriate to do so in a given part of your code.
+No que se refere à programação funcional, eu faria esta advertência: haverá muitos padrões interessantes e convinventes discutidos neste texto, mas só porque você acha interessante aplicar algum padrão, pode não ser necessariamente apropriado fazê-lo em uma determinada parte do seu código.
 
-This is where I will differ from many formal FPers: just because you *can* apply FP to something doesn't mean you *should* apply FP to it. Moreover, there are many ways to slice a problem, and even though you may have learned a more sophisticated approach that is more "future-proof" to maintenance and extensibility, a simpler FP pattern might be more than sufficient in that spot.
+É aqui que vou diferir de muitos "FPers" formais: só porque você *pode* aplicar FP a algo, não significa que você *deve* aplicar FP a isso. Além disso, há muitas maneiras de dividir um problema, e mesmo que você possa ter aprendido uma abordagem mais sofisticada que seja por mais "preparada para o futuro" para manutenção e extensilibidade, um padrão FP mais simples pode ser mais que suficiente nesse caso.
 
-Generally, I'd recommend seeking balance in what you code, and to be conservative in your application of FP concepts as you get the hang of things. Default to the YAGNI principle in deciding if a certain pattern or abstraction will help that part of the code be more readable or if it's just introducing clever sophistication that isn't (yet) warranted.
+Geralmente, eu recomendo buscar equilíbrio no que você codifica e ser conservador na aplicação dos conceitos de FP à medida que você pega o jeito. O padrão é o princípio YAGNI para decidir se um determinado padrão ou abstração ajudará aquela parte do código a ser mais legível ou se está apenas introduzindo uma sofisticação inteligente que (ainda) não é garantida.
 
-> Reminder, any extensibility point that’s never used isn’t just wasted effort, it’s likely to also get in your way as well
+> Lembrete: qualquer ponto de extensibilidade que nunca é usado não é apenas um esforço desperdiçado, é provável que também atrapalhe
 >
 > Jeremy D. Miller @jeremydmiller 2/20/15
 >
 > https://twitter.com/jeremydmiller/status/568797862441586688
 
-Remember, every single line of code you write has a reader cost associated with it. That reader may be another team member, or even your future self. Neither of those readers will be impressed with overly clever, unnecessary sophistication just to show off your FP prowess.
+Lembre-se de que cada linha de código que você escreve tem um custo de leitura associado. Esse leitor pode ser outro membro da equipe ou até mesmo seu futuro eu. Nenhum desses leitores ficará impressionado com a sofisticação excessivamente inteligente e desnecessária apenas para mostar suas proezas em FP.
 
-The best code is the code that is most readable in the future because it strikes exactly the right balance between what it can/should be (idealism) and what it must be (pragmatism).
+O melhor código é aquele que será mais legível no futuro porque atinge exatamente o equilíbrio certo entre o que pode/deveria ser (idealismo) e o que deve ser (pragmatismo).
 
-## Resources
+## Recursos
 
-I have drawn on a great many different resources to be able to compose this text. I believe you, too, may benefit from them, so I wanted to take a moment to point them out.
+Eu recorri a muitos recurso diferentes para poder compor este texto. Acredito que você também pode se beneficiar com eles, então gostaria de reservar um momento para referenciá-los.
 
-### Books
+### Livros
 
-Some FP/JavaScript books that you should definitely read:
+Alguns livros JavaScript/FP que você definitivamente deveria ler:
 
 * [Professor Frisby's Mostly Adequate Guide to Functional Programming](https://mostly-adequate.gitbook.io/mostly-adequate-guide/) by [Brian Lonsdorf](https://twitter.com/drboolean)
 * [JavaScript Allongé](https://leanpub.com/javascriptallongesix) by [Reg Braithwaite](https://twitter.com/raganwald)
@@ -221,7 +221,7 @@ Some FP/JavaScript books that you should definitely read:
 
 ### Blogs/sites
 
-Some other authors and content you should check out:
+Alguns outros autores e conteúdos que você deve conferir:
 
 * [Fun Fun Function Videos](https://www.youtube.com/watch?v=BMUiFMZr7vk) by [Mattias P Johansson](https://twitter.com/mpjme)
 * [Awesome FP JS](https://github.com/stoeffel/awesome-fp-js)
@@ -233,20 +233,20 @@ Some other authors and content you should check out:
 * [Functional Programming Jargon](https://github.com/hemanth/functional-programming-jargon#functional-programming-jargon)
 * [Functional Programming Exercises](https://github.com/InceptionCode/Functional-Programming-Exercises)
 
-### Libraries
+### Bibliotecas
 
-The code snippets in this book largely do not rely on libraries. Each operation that we discover, we'll derive how to implement it in standalone, plain ol' JavaScript. However, as you begin to build more of your real code with FP, you'll soon want a library to provide optimized and highly reliable versions of these commonly accepted utilities.
+Os trechos de código deste livro não dependem em grande parte de bibliotecas. Cada operação que descobrirmos, descobriremos como implementá-la em JavaScript simples e independente. No entanto, à medida que você começa a construir mais código real com FP, em breve você desejará uma biblioteca que forneça versões otimizadas e altamente confiáveis desses utilitários comumente aceitos.
 
-By the way, you need to check the documentation for the library functions you use to ensure you know how they work. There will be a lot of similarities in many of them to the code we build on in this text, but there will undoubtedly be some differences, even between popular libraries.
+A propósito você precisa verificar a documentação das funções da biblioteca que você usa para garantir que sabe como elas funcionam. Haverá muitas semelhanças em muitos deles com o código que construírmos neste texto, mas sem dúvida haverá algumas diferenças, mesmo entre bibliotecas populares.
 
-Here are a few popular FP libraries for JavaScript that are a great place to start your exploration with:
+Aqui estão algumas bibliotecas FP populares para JavaScript que são um ótimo lugar para começar sua exploração:
 
 * [Ramda](http://ramdajs.com)
 * [lodash/fp](https://github.com/lodash/lodash/wiki/FP-Guide)
 * [functional.js](http://functionaljs.com/)
 * [Immutable.js](https://github.com/facebook/immutable-js)
 
-[Appendix C takes a deeper look at these libraries](apC.md/#stuff-to-investigate) and others.
+[Appendix C takes a deeper look at these libraries](apC.md/#stuff-to-investigate) e outras.
 
 ## Summary
 
