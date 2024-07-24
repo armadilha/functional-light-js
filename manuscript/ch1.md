@@ -248,15 +248,15 @@ Aqui estão algumas bibliotecas FP populares para JavaScript que são um ótimo 
 
 [Appendix C takes a deeper look at these libraries](apC.md/#stuff-to-investigate) e outras.
 
-## Summary
+## Resumo
 
-You may have a variety of reasons for starting to read this book, and different expectations of what you'll get out of it. This chapter has explained why I want you to read the book and what I want you to get out of the journey. It also helps you articulate to others (like your fellow developers) why they should come on the journey with you!
+Você pode ter vários motivos para começar a ler este livro e diferentes expectativas sobre o que obterá com ele. Este capítulo explicou por que quero que você leia o livro e o que quero que você obtenha com a jornada. Também ajuda você a articular com outras pessoas (como seus colegas desenvolvedores) por que eles deveriam vir nessa jornada com você!
 
-Functional programming is about writing code that is based on proven principles so we can gain a level of confidence and trust over the code we write and read. We shouldn't be content to write code that we anxiously *hope* works, and then abruptly breathe a sigh of relief when the test suite passes. We should *know* what it will do before we run it, and we should be absolutely confident that we've communicated all these ideas in our code for the benefit of other readers (including our future selves).
+A programação funcional trata de escrever código baseado em princípios comprovados para que possamos ganhar um nível de confiança e segurança sobre o código que escrevemos e lemos. Não deveríamos nos contentar em escrever códigos que *esperamos* ansiosamente que funcionem e, então, respirar aliviados quando o conjunto de testes for aprovado. Devemos *saber* o que ele fará antes de executá-lo e devemos estar absolutamente confiantes de que comunicamos todas essas ideias em nosso código para o benefício de outros leitores (incuindo nós mesmos no futuro).
 
-This is the heart of Functional-Light JavaScript. The goal is to learn to effectively communicate with our code but not have to suffocate under mountains of notation or terminology to get there.
+Este é o coração do Functional-Light JavaScript. O objetivo é aprender a se comunicar de forma eficaz com nosso código, mas sem ter que sufocar sob montanhas de notação ou terminologia para chegar lá.
 
-The journey to learning functional programming starts with deeply understanding the nature of what a function is. That's what we tackle in the next chapter.
+A jornada para aprender programação funcional começa com a compreensão profunda da natureza do que é uma função. É isso que abordaremos no próximo capítulo.
 
 ----
 
