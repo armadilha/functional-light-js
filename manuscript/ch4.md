@@ -612,17 +612,17 @@ var b = tmp[3];
 var [ a ,,, b ] = getData();
 ```
 
-The *what* is assigning the first value of the array to `a` and the fourth value to `b`. The *how* is getting a reference to the array (`tmp`) and manually referencing indexes `0` and `3` in assignments to `a` and `b`, respectively.
+O *o que* está atribuindo o primeiro valor da matriz `a` e o quarto valor da ` b`. O *como* está obtendo uma referência à matriz (`tmp`) e referenciando manualmente os índices` 0` e `3` nas atribuições para` a` e `b`, respectivamente.
 
-Does the array destructuring *hide* the assignment? Depends on your perspective. I'm asserting that it simply separates the *what* from the *how*. The JS engine still does the assignments, but it prevents you from having to be distracted by *how* it's done.
+A desestruturação da matriz oculta a atribuição? Depende da sua perspectiva. Estou afirmando que ela simplesmente separa o *o que* do *como*. O mecanismo JS ainda faz as tarefas, isso evita que você tenha que se distrair com *como* as coisas são feitas.
 
-Instead, you read `[ a ,,, b ] = ..` and can see the assignment pattern merely telling you *what* will happen. Array destructuring is an example of declarative abstraction.
+Em vez disso, você lê `[ a ,,, b ] = ..` e pode ver o padrão de atribuição meramente dizendo a você *o que* vai acontecer. A desestruturação de array é um exemplo de abstração declarativa.
 
-### Composition as Abstraction
+### Composição como abstração
 
-What's all this have to do with function composition? Function composition is also declarative abstraction.
+O que tudo isso tem a ver com composição de função? Composição de função também é abstração declarativa.
 
-Recall the `shorterWords(..)` example from earlier. Let's compare an imperative and declarative definition for it:
+Lembre-se do exemplo `shorterWords(..)` anterior. Vamos comparar uma definição imperativa e declarativa para ele:
 
 ```js
 // imperative
@@ -634,17 +634,17 @@ function shorterWords(text) {
 var shorterWords = compose( skipLongWords, unique, words );
 ```
 
-The declarative form focuses on the *what* -- these three functions pipe data from a string to a list of shorter words -- and leaves the *how* to the internals of `compose(..)`.
+A forma declarativa foca no *o que* -- essas três funções canalizam dados de uma string para uma lista de palavras mais curtas -- e deixa o *como* para os internos de `compose(..)`.
 
-In a bigger sense, the `shorterWords = compose(..)` line explains the *how* for defining a `shorterWords(..)` utility, leaving this declarative line somewhere else in the code to focus only on the *what*:
+Em um sentido mais amplo, a linha `shorterWords = compose(..)` explica o *como* para definir um utilitário `shorterWords(..)`, deixando essa linha declarativa em algum outro lugar no código para focar apenas no *o que*:
 
 ```js
 shorterWords( text );
 ```
 
-Composition abstracts getting a list of shorter words from the steps it takes to do that.
+Abstrações de composição obtêm uma lista de palavras mais curtas a partir dos passos necessários para fazer isso.
 
-By contrast, what if we hadn't used composition abstraction?
+Em contraste, e se não tivéssemos usado abstração de composição?
 
 ```js
 var wordsFound = words( text );
@@ -652,21 +652,21 @@ var uniqueWordsFound = unique( wordsFound );
 skipLongWords( uniqueWordsFound );
 ```
 
-Or even:
+Ou mesmo:
 
 ```js
 skipLongWords( unique( words( text ) ) );
 ```
 
-Either of these two versions demonstrates a more imperative style as opposed to the prior declarative style. The reader's focus in those two snippets is inextricably tied to the *how* and less on the *what*.
+Qualquer uma dessas duas versões demonstra um estilo mais imperativo em oposição ao estilo declarativo anterior. O foco do leitor nesses dois trechos está inextricavelmente ligado ao *como* e menos ao *o quê*.
 
-Function composition isn't just about saving code with DRY. Even if the usage of `shorterWords(..)` only occurs in one place -- so there's no repetition to avoid! -- separating the *how* from the *what* still improves our code.
+A composição de funções não é apenas sobre salvar código com DRY. Mesmo que o uso de `shorterWords(..)` ocorra apenas em um lugar -- então não há repetição a evitar! -- separar o *como* do *o que* ainda melhora nosso código.
 
-Composition is a powerful tool for abstraction that transforms imperative code into more readable declarative code.
+A composição é uma ferramenta poderosa para abstração que transforma código imperativo em código declarativo mais legível.
 
-## Revisiting Points
+## Revendo os pontos
 
-Now that we've thoroughly covered composition (a trick that will be immensely helpful in many areas of FP), let's watch it in action by revisiting point-free style from [Chapter 3, "No Points"](ch3.md/#no-points) with a scenario that's a fair bit more complex to refactor:
+Agora que cobrimos completamente a composição (um truque que será imensamente útil em muitas áreas do FP), vamos observá-lo em ação revisitando o estilo sem pontos do [Capítulo 3, "Sem pontos"](ch3.md/#no-points) com um cenário que é um pouco mais complexo de refatorar:
 
 ```js
 // given: ajax( url, data, cb )
@@ -681,9 +681,9 @@ getLastOrder( function orderFound(order){
 } );
 ```
 
-The "points" we'd like to remove are the `order` and `person` parameter references.
+Os "pontos" que gostaríamos de remover são as referências de parâmetros `order` e `person`.
 
-Let's start by trying to get the `person` "point" out of the `personFound(..)` function. To do so, let's first define:
+Vamos começar tentando obter o "ponto" `person` da função `personFound(..)`. Para fazer isso, vamos primeiro definir:
 
 ```js
 function extractName(person) {
@@ -691,7 +691,7 @@ function extractName(person) {
 }
 ```
 
-Consider that this operation could instead be expressed in generic terms: extracting any property by name off of any object. Let's call such a utility `prop(..)`:
+Considere que essa operação poderia ser expressa em termos genéricos: extrair qualquer propriedade por nome de qualquer objeto. Vamos chamar esse utilitário de `prop(..)`:
 
 ```js
 function prop(name,obj) {
@@ -704,9 +704,9 @@ var prop =
         obj[name];
 ```
 
-While we're dealing with object properties, let's also define the opposite utility: `setProp(..)` for setting a property value onto an object.
+Enquanto lidamos com propriedades de objetos, vamos também definir o utilitário oposto: `setProp(..)` para definir um valor de propriedade em um objeto.
 
-However, we want to be careful not to just mutate an existing object but rather create a clone of the object to make the change to, and then return it. The reasons for such care will be discussed at length in [Chapter 5](ch5.md).
+No entanto, queremos ter cuidado para não apenas mutar um objeto existente, mas sim criar um clone do objeto para fazer a alteração e, então, retorná-lo. As razões para tal cuidado serão discutidas em detalhes no [Capítulo 5](ch5.md).
 
 <a name="setprop"></a>
 
@@ -718,15 +718,15 @@ function setProp(name,obj,val) {
 }
 ```
 
-Now, to define an `extractName(..)` that pulls a `"name"` property off an object, we'll partially apply `prop(..)`:
+Agora, para definir um `extract Name(..)` que extrai uma propriedade `"name"` de um objeto, aplicaremos parcialmente `prop(..)`:
 
 ```js
 var extractName = partial( prop, "name" );
 ```
 
-**Note:** Don't miss that `extractName(..)` here hasn't actually extracted anything yet. We partially applied `prop(..)` to make a function that's waiting to extract the `"name"` property from whatever object we pass into it. We could also have done it with `curry(prop)("name")`.
+**Observação:** Não esqueça que `extractName(..)` aqui ainda não extraiu nada. Aplicamos parcialmente `prop(..)` para criar uma função que está esperando para extrair a propriedade `"name"` de qualquer objeto que passarmos para ela. Também poderíamos ter feito isso com `curry(prop)("name")`.
 
-Next, let's narrow the focus on our example's nested lookup calls to this:
+Em seguida, vamos restringir o foco nas chamadas de pesquisa aninhadas do nosso exemplo para isto:
 
 ```js
 getLastOrder( function orderFound(order){
@@ -734,27 +734,27 @@ getLastOrder( function orderFound(order){
 } );
 ```
 
-How can we define `outputPersonName(..)`? To visualize what we need, think about the desired flow of data:
+Como podemos definir `outputPersonName(..)`? Para visualizar o que precisamos, pense no fluxo de dados desejado:
 
 ```txt
 output <-- extractName <-- person
 ```
 
-`outputPersonName(..)` needs to be a function that takes an (object) value, passes it into `extractName(..)`, then passes that value to `output(..)`.
+`outputPersonName(..)` precisa ser uma função que pega um valor (objeto), passa para `extractName(..)`, então passa esse valor para `output(..)`.
 
-Hopefully you recognized that as a `compose(..)` operation. So we can define `outputPersonName(..)` as:
+Espero que você tenha reconhecido isso como uma operação `compose(..)`. Então podemos definir `outputPersonName(..)` como:
 
 ```js
 var outputPersonName = compose( output, extractName );
 ```
 
-The `outputPersonName(..)` function we just created is the callback provided to `getPerson(..)`. So we can define a function called `processPerson(..)` that presets the callback argument, using `partialRight(..)`:
+A função `outputPersonName(..)` que acabamos de criar é o retorno de chamada fornecido para `getPerson(..)`. Então podemos definir uma função chamada `processPerson(..)` que predefine o argumento de retorno de chamada, usando `partialRight(..)`:
 
 ```js
 var processPerson = partialRight( getPerson, outputPersonName );
 ```
 
-Let's reconstruct the nested lookups example again with our new function:
+Vamos reconstruir o exemplo de pesquisas aninhadas novamente com nossa nova função:
 
 ```js
 getLastOrder( function orderFound(order){
@@ -762,15 +762,15 @@ getLastOrder( function orderFound(order){
 } );
 ```
 
-Phew, we're making good progress!
+Ufa, estamos fazendo um bom progresso!
 
-But we need to keep going and remove the `order` "point". The next step is to observe that `personId` can be extracted from an object (like `order`) via `prop(..)`, just like we did with `name` on the `person` object:
+Mas precisamos continuar e remover o "ponto" `order`. O próximo passo é observar que `personId` pode ser extraído de um objeto (como `order`) via `prop(..)`, assim como fizemos com `name` no objeto `person`:
 
 ```js
 var extractPersonId = partial( prop, "personId" );
 ```
 
-To construct the object (of the form `{ id: .. }`) that needs to be passed to `processPerson(..)`, let's make another utility for wrapping a value in an object at a specified property name, called `makeObjProp(..)`:
+Para construir o objeto (do formato `{ id: .. }`) que precisa ser passado para `processPerson(..)`, vamos criar outro utilitário para encapsular um valor em um objeto em um nome de propriedade especificado, chamado `makeObjProp(..)`:
 
 ```js
 function makeObjProp(name,value) {
@@ -783,28 +783,28 @@ var makeObjProp =
         setProp( name, {}, value );
 ```
 
-**Tip:** This utility is known as `objOf(..)` in the Ramda library.
+**Dica:** Este utilitário é conhecido como `objOf(..)` na biblioteca Ramda.
 
-Just as we did with `prop(..)` to make `extractName(..)`, we'll partially apply `makeObjProp(..)` to build a function `personData(..)` that makes our data object:
+Assim como fizemos com `prop(..)` para fazer `extractName(..)`, aplicaremos parcialmente `makeObjProp(..)` para construir uma função `personData(..)` que faz nosso objeto de dados:
 
 ```js
 var personData = partial( makeObjProp, "id" );
 ```
 
-To use `processPerson(..)` to perform the lookup of a person attached to an `order` value, the conceptual flow of data through operations we need is:
+Para usar `processPerson(..)` para executar a pesquisa de uma pessoa anexada a um valor `order`, o fluxo conceitual de dados por meio de operações que precisamos é:
 
 ```txt
 processPerson <-- personData <-- extractPersonId <-- order
 ```
 
-So we'll just use `compose(..)` again to define a `lookupPerson(..)` utility:
+Então usaremos `compose(..)` novamente para definir um utilitário `lookupPerson(..)`:
 
 ```js
 var lookupPerson =
     compose( processPerson, personData, extractPersonId );
 ```
 
-And... that's it! Putting the whole example back together without any "points":
+E... é isso! Montando o exemplo todo de volta sem nenhum "ponto":
 
 ```js
 var getPerson = partial( ajax, "http://some.api/person" );
@@ -822,11 +822,11 @@ var lookupPerson =
 getLastOrder( lookupPerson );
 ```
 
-Wow. Point-free. And `compose(..)` turned out to be really helpful in two places!
+Uau. Sem pontos. E `compose(..)` acabou sendo realmente útil em dois lugares!
 
-I think in this case, even though the steps to derive our final answer were a bit drawn out, the end result is much more readable code, because we've ended up explicitly calling out each step.
+Acho que neste caso, embora os passos para derivar nossa resposta final tenham sido um pouco longos, o resultado final é um código muito mais legível, porque acabamos chamando explicitamente cada passo.
 
-And even if you didn't like seeing/naming all those intermediate steps, you can preserve point-free but wire the expressions together without individual variables:
+E mesmo que você não goste de ver/nomear todos esses passos intermediários, você pode preservar a ausência de pontos, mas conectar as expressões sem variáveis ​​individuais:
 
 ```js
 partial( ajax, "http://some.api/order", { id: -1 } )
@@ -842,20 +842,20 @@ partial( ajax, "http://some.api/order", { id: -1 } )
 );
 ```
 
-This snippet is less verbose for sure, but I think it's less readable than the previous snippet where each operation is its own variable. Either way, composition helped us with our point-free style.
+Este snippet é menos verboso, com certeza, mas acho que é menos legível do que o snippet anterior, onde cada operação é sua própria variável. De qualquer forma, a composição nos ajudou com nosso estilo sem pontos.
 
-## Summary
+## Resumo
 
-Function composition is a pattern for defining a function that routes the output of one function call into another function call, and its output to another, and so on.
+Composição de funções é um padrão para definir uma função que roteia a saída de uma chamada de função para outra chamada de função, e sua saída para outra, e assim por diante.
 
-Because JS functions can only return single values, the pattern essentially dictates that all functions in the composition (except perhaps the first called) need to be unary, taking only a single input from the output of the previous function.
+Como as funções JS só podem retornar valores únicos, o padrão essencialmente determina que todas as funções na composição (exceto talvez a primeira chamada) precisam ser unárias, recebendo apenas uma única entrada da saída da função anterior.
 
-Instead of listing out each step as a discrete call in our code, function composition using a utility like `compose(..)` or `pipe(..)` abstracts that implementation detail so the code is more readable, allowing us to focus on *what* the composition will be used to accomplish, not *how* it will be performed.
+Em vez de listar cada etapa como uma chamada discreta em nosso código, a composição de funções usando um utilitário como `compose(..)` ou `pipe(..)` abstrai os detalhes da implementação para que o código seja mais legível, permitindo-nos focar em *o que* a composição será usada para realizar, não em *como* ela será executada.
 
-Composition is declarative data flow, meaning our code describes the flow of data in an explicit, obvious, and readable way.
+Composição é um fluxo de dados declarativo, o que significa que nosso código descreve o fluxo de dados de forma explícita, óbvia e legível.
 
-In many ways, composition is the most important foundational pattern, in large part because it's the only way to route data through our programs aside from using side effects; the next chapter explores why such should be avoided wherever possible.
+De muitas maneiras, a composição é o padrão fundamental mais importante, em grande parte porque é a única maneira de rotear dados por meio de nossos programas, além de usar efeitos colaterais; o próximo capítulo explora por que isso deve ser evitado sempre que possível.
 
 ----
 
-<a name="footnote-1"><sup>1</sup></a>Scott, Michael L. “Chapter 3: Names, Scopes, and Bindings.” Programming Language Pragmatics, 4th ed., Morgan Kaufmann, 2015, pp. 115.
+<a name="footnote-1"><sup>1</sup></a>Scott, Michael L. “Capítulo 3: Nomes, escopos e vinculações.” Programming Language Pragmatics, 4th ed., Morgan Kaufmann, 2015, pp. 115.
