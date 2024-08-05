@@ -1,5 +1,5 @@
 # Functional-Light JavaScript
-# Chapter 2: The Nature Of Functions
+# Capitulo 2: A Natureza Das Funções
 
 Functional Programming is **not just programming with the `function` keyword.** Oh, if only it was that easy -- I could end the book right here! Nevertheless, functions really *are* at the center of FP. And it's how we use functions that makes our code *functional*.
 
