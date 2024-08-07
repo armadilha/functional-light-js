@@ -641,9 +641,9 @@ Both currying and partial application use closure to remember the arguments over
 
 ### Visualizing Curried Functions
 
-Let's examine more closely the `curriedSum(..)` from the previous section. Recall its usage: `curriedSum(1)(2)(3)(4)(5)`; five subsequent (chained) function calls.
+Vamos examinar de mais perto o `curriedSum(..)` da seção anterior. Vamos lembrar de como ele é usado: `curriedSum(1)(2)(3)(4)(5)`; cinco chamadas de função subsequentes (encadeadas).
 
-What if we manually defined a `curriedSum(..)` instead of using `curry(..)`? How would that look?
+E se definirmos manualmente o `curriedSum(..)` em vez de usar `curry(..)`? como seria?
 
 ```js
 function curriedSum(v1) {
@@ -659,11 +659,11 @@ function curriedSum(v1) {
 }
 ```
 
-Definitely uglier, no question. But this is an important way to visualize what's going on with a curried function. Each nested function call is returning another function that's going to accept the next argument, and that continues until we've specified all the expected arguments.
+Definitivamente pior, não é mesmo? Mas isso é uma maneira importante de visualizar o que está acontecendo com essa função currying. Cada chamada de função aninhada retorna outra função que irá aceitar o próximo argumento, e isso continua até especificarmos todos os argumentos esperados.
 
-When trying to decipher curried functions, I've found it helps me tremendously if I can unwrap them mentally as a series of nested functions.
+Ao tentar entender as funções currying, descobri algo que me ajuda bastante, se eu pudesse desvendá-las mentalmente como uma série de funções aninhadas.
 
-In fact, to reinforce that point, let's consider the same code but written with ES6 arrow functions:
+Na verdade, para reforçar esse ponto, vamos considerar que o mesmo código, mas escrito com as arrows functions do ES6:
 
 ```js
 curriedSum =
@@ -675,23 +675,23 @@ curriedSum =
                         sum( v1, v2, v3, v4, v5 );
 ```
 
-And now, all on one line:
+E agora, tudo em uma só linha:
 
 ```js
 curriedSum = v1 => v2 => v3 => v4 => v5 => sum( v1, v2, v3, v4, v5 );
 ```
 
-Depending on your perspective, that form of visualizing the curried function may be more or less helpful to you. For me, it's a fair bit more obscured.
+Dependendo da sua perspectiva, essa forma de visualizar as *curried function* pode ser útil para você. Para mim, é um pouco mais díficil de entender.
 
-But the reason I show it that way is that it happens to look almost identical to the mathematical notation (and Haskell syntax) for a curried function! That's one reason why those who like mathematical notation (and/or Haskell) like the ES6 arrow function form.
+Mas a razão que mostro desta maneira é que parece quase a notação matemática (e *Haskell syntax*) para uma *função currying*! Está é uma razão porque aqueles que gostam de notação matemática ( ou *Haskell*) gostam de *arrow function* do ES6.
 
 ### Why Currying and Partial Application?
 
-With either style -- currying (such as `sum(1)(2)(3)`) or partial application (such as `partial(sum,1,2)(3)`) -- the call-site unquestionably looks stranger than a more common one like `sum(1,2,3)`. So **why would we ever go this direction** when adopting FP? There are multiple layers to answering that question.
+Com qualquer estilo -- currying (como `sum(1)(2)(3)`) ou *partial application* (como `partial(sum,1,2)(3)`) -- no lado da chamada da função não é tão estranho quanto uma chamada mais comum como `sum(1,2,3)`. Então **por que deveríamos optar por essas abordagens** quando adotamos a programação funcional? Há várias camadas para responder essa pergunta.
 
-The first and most obvious reason is that both currying and partial application allow you to separate in time/space (throughout your codebase) when and where separate arguments are specified, whereas traditional function calls require all the arguments to be present at the same time. If you have a place in your code where you'll know some of the arguments and another place where the other arguments are determined, currying or partial application are very useful.
-
-Another layer to this answer, specifically for currying, is that composition of functions is much easier when there's only one argument. So a function that ultimately needs three arguments, if curried, becomes a function that needs just one, three times over. That kind of unary function will be a lot easier to work with when we start composing them. We'll tackle this topic later in [Chapter 4](ch4.md).
+A primeira e mais óbvia razão é que ambos, currying e partial applicatio, permitem que você separe no e tempo/espaço (em seu código) quando e onde os argumentos separados são especificados, considerando que chamadas de função tradicionais requerem que todos os argumentos estejam presentes ao mesmo tempo. Se você tem um lugar no seu código onde conhece algum de seus argumentos e outros lugares onde os outros argumentos são determinados, currying ou partial application são muito úteis.
+ 
+Outro aspecto dessa resposta, especificamente para o currying, é que a composição de funções é muito mais fácil quando há apenas um argumento. Então, uma função que precisa de três argumentos, se for curried, se torna uma função que precisa apenas de um, três vezes. Isso é um tipo de função unário que irá ser muito mais fácil de trabalhar quando estamos começando a compô-la. Vamos abordar este tópico mais tarde no [Capitulo 4](ch4.md).
 
 But the most important layer is specialization of generalized functions, and how such abstraction improves readability of code.
 
