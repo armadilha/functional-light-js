@@ -687,15 +687,15 @@ Mas a razão que mostro desta maneira é que parece quase a notação matemátic
 
 ### Why Currying and Partial Application?
 
-Com qualquer estilo -- currying (como `sum(1)(2)(3)`) ou *partial application* (como `partial(sum,1,2)(3)`) -- no lado da chamada da função não é tão estranho quanto uma chamada mais comum como `sum(1,2,3)`. Então **por que deveríamos optar por essas abordagens** quando adotamos a programação funcional? Há várias camadas para responder essa pergunta.
+Com qualquer estilo -- currying (como `sum(1)(2)(3)`) ou *partial application* (como `partial(sum,1,2)(3)`) -- no ponto de chamada da função não é tão estranho quanto uma chamada mais comum como `sum(1,2,3)`. Então **por que deveríamos optar por essas abordagens** quando adotamos a programação funcional? Há várias camadas para responder essa pergunta.
 
-A primeira e mais óbvia razão é que ambos, currying e partial applicatio, permitem que você separe no e tempo/espaço (em seu código) quando e onde os argumentos separados são especificados, considerando que chamadas de função tradicionais requerem que todos os argumentos estejam presentes ao mesmo tempo. Se você tem um lugar no seu código onde conhece algum de seus argumentos e outros lugares onde os outros argumentos são determinados, currying ou partial application são muito úteis.
+A primeira e mais óbvia razão é que ambos, *currying* e *partial applicatio*, permitem que você separe no e tempo/espaço (em seu código) quando e onde os argumentos separados são especificados, considerando que chamadas de função tradicionais requerem que todos os argumentos estejam presentes ao mesmo tempo. Se você tem um lugar no seu código onde conhece algum de seus argumentos e outros lugares onde os outros argumentos são determinados, *currying* ou *partial application* são muito úteis.
  
-Outro aspecto dessa resposta, especificamente para o currying, é que a composição de funções é muito mais fácil quando há apenas um argumento. Então, uma função que precisa de três argumentos, se for curried, se torna uma função que precisa apenas de um, três vezes. Isso é um tipo de função unário que irá ser muito mais fácil de trabalhar quando estamos começando a compô-la. Vamos abordar este tópico mais tarde no [Capitulo 4](ch4.md).
+Outro aspecto dessa resposta, especificamente para o *currying*, é que a composição de funções é muito mais fácil quando há apenas um argumento. Então, uma função que precisa de três argumentos, se for curried, se torna uma função que precisa apenas de um, três vezes. Isso é um tipo de função unário que irá ser muito mais fácil de trabalhar quando estamos começando a compô-la. Vamos abordar este tópico mais tarde no [Capitulo 4](ch4.md).
 
-But the most important layer is specialization of generalized functions, and how such abstraction improves readability of code.
+Mas o aspecto mais importante é especialização de funções generalizadas, e como a abstração melhora a legibilidade do código.
 
-Consider our running `ajax(..)` example:
+Considere nosso exemplo de execução `ajax(..)`:
 
 ```js
 ajax(
@@ -705,9 +705,9 @@ ajax(
 );
 ```
 
-The call-site includes all the information necessary to pass to the most generalized version of the utility (`ajax(..)`). The potential readability downside is that it may be the case that the URL and the data are not relevant information at this point in the program, but yet that information is cluttering up the call-site nonetheless.
+Este ponto de chamada inclui todas as informações necessárias para passar para a versão mais generalizada da função utilitária (`ajax(..)`). A potencial desvantagem de legibilidade é que pode ser que a URL e os dados não sejam informações relevantes neste momento do programa, mas que essas informações estejam sobrecarregando o ponto de chamada.
 
-Now consider:
+Considere:
 
 ```js
 var getCurrentUser = partial(
@@ -721,9 +721,9 @@ var getCurrentUser = partial(
 getCurrentUser( function foundUser(user){ /* .. */ } );
 ```
 
-In this version, we define a `getCurrentUser(..)` function ahead of time that already has known information like URL and data preset. The call-site for `getCurrentUser(..)` then isn't cluttered by information that **at that point of the code** isn't relevant.
+Nesta versão, definimos antecipadamente uma função `getCurrentUser(..)` que já contém informações conhecidas, como a URL e os dados predefinidos. Assim, o ponto de chamada para  `getCurrentUser(..)` não fica sobrecarregado com informações que,  **nesse momento do código**, são irrelevantes.
 
-Moreover, the semantic name for the function `getCurrentUser(..)` more accurately depicts what is happening than just `ajax(..)` with a URL and data would.
+Além disso, o nome semântico para a função `getCurrentUser(..)` descreve melhor o que está acontecendo do que apenas `ajax(..)` com uma URL e dados.
 
 That's what abstraction is all about: separating two sets of details -- in this case, the *how* of getting a current user and the *what* we do with that user -- and inserting a semantic boundary between them, which eases the reasoning of each part independently.
 
