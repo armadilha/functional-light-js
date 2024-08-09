@@ -725,17 +725,17 @@ Nesta versão, definimos antecipadamente uma função `getCurrentUser(..)` que j
 
 Além disso, o nome semântico para a função `getCurrentUser(..)` descreve melhor o que está acontecendo do que apenas `ajax(..)` com uma URL e dados.
 
-That's what abstraction is all about: separating two sets of details -- in this case, the *how* of getting a current user and the *what* we do with that user -- and inserting a semantic boundary between them, which eases the reasoning of each part independently.
+E é por isso que a abstração é tudo sobre: separar dois conjuntos de detalhes -- no caso de *como* obter um usuário atual e *o que* fazemos com esse usuário -- e estabelecer um limite semântico entre eles, o que facilita o raciocínio de cada parte de forma independente.
 
-Whether you use currying or partial application, creating specialized functions from generalized ones is a powerful technique for semantic abstraction and improved readability.
+Se você usar *currying* ou *partial application*, criar funções especializadas a partir de funções generalizadas é uma técnica poderosa para abstração semântica e melhora a legibilidade do código.
 
 ### Currying More Than One Argument?
 
-The definition and implementation I've given of currying thus far is, I believe, as true to the spirit as we can likely get in JavaScript.
+A definição e implementação de *currying* que mostrei até agora, acredito que seja tão fiel a essência quanto podemos obter em JavaScript.
 
-Specifically, if we look briefly at how currying works in Haskell, we can observe that multiple arguments always go in to a function one at a time, one per curried call -- other than tuples (analogous to arrays for our purposes) that transport multiple values in a single argument.
+Especificamente, sse examinarmos brevemente como funciona *currying* em Haskell, podemos observar que multiplos argumentos sempre vsão passados para uma função um de cada vez, um por chamada *curried* -- além de tuplas (semelhantes a arrays para nossos propósitos) que transportam vários valores em um únicos argumento.
 
-For example, in Haskell:
+Por exemplo, em Haskell:
 
 ```haskell
 foo 1 2 3
