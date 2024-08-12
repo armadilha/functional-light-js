@@ -741,13 +741,13 @@ Por exemplo, em Haskell:
 foo 1 2 3
 ```
 
-This calls the `foo` function, and has the result of passing in three values `1`, `2`, and `3`. But functions are automatically curried in Haskell, which means each value goes in as a separate curried-call. The JS equivalent of that would look like `foo(1)(2)(3)`, which is the same style as the `curry(..)` I presented earlier.
+Esta função chama a função `foo`, e passar os valores `1`, `2`, e `3`. No entanto, em Haskell, funções são automaticamente "currificadas", o que significa que cada valor é passado como uma chamada currificada separada. O equivalente no JavaScript seria `foo(1)(2)(3)`, que segue o mesmo estilo que o `curry(..)` que apresentei anteriormente.
 
-**Note:** In Haskell, `foo (1,2,3)` is not passing in those three values at once as three separate arguments, but a tuple (kinda like a JS array) as a single argument. To work, `foo` would need to be altered to handle a tuple in that argument position. As far as I can tell, there's no way in Haskell to pass all three arguments separately with just one function call; each argument gets its own curried-call. Of course, the presence of multiple calls is transparent to the Haskell developer, but it's a lot more syntactically obvious to the JS developer.
+**Nota:** Em Haskell, `foo (1,2,3)` não passa esses três valores de uma vez como três argumentos separados, mas sim como uma tupla (algo como um array em JavaScript) como um único argumento. Para funcionar, `foo` precisaria que ser alterado para lidar com tuplar nesse posição de argumento. Pelo que eu sei, não há uma maneira de passar todos os três argumentos separadamente em uma única chamada de função, em Haskell; cada argumento receber a própria chamada currificada. Claro, a presença de várias chamadas é transparente para o desenvolvedor Haskell, mas é muita mais sintaticamente obviou para o desenvolvedor JavaScript.
 
-For these reasons, I think the `curry(..)` that I demonstrated earlier is a faithful adaptation, or what I might call "strict currying". However, it's important to note that there's a looser definition used in most popular JavaScript FP libraries.
+Por essas razões, acredito que o `curry(..)` que demosntrei anteriormente é uma fiel adaptação, ou como eu podesria chamar *"strict currying"*. No entanto, é importante notar que existe uma definição flexível usada em bibliotecas populares de Programação Funcional em JavaScript.
 
-Specifically, JS currying utilities typically allow you to specify multiple arguments for each curried-call. Revisiting our `sum(..)` example from before, this would look like:
+Especificamente, os utilitários de currying em JavaScript geralmente permitem que você especifique vários argumentos para cada chamada currificada. Revisitando o exemplo anterior `sum(..)`, ficaria assim:
 
 ```js
 var curriedSum = looseCurry( sum, 5 );
