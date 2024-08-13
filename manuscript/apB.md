@@ -1,58 +1,32 @@
-# Functional-Light JavaScript
-# Appendix B: The Humble Monad
+# Funcional-Light JavaScritp
 
-Let me just start off this appendix by admitting: I did not know much about what a monad was before starting to write this appendix. And it took a lot of mistakes to get something sensible. If you don't believe me, go look at the commit history of this appendix in the [Github repository for this book](https://github.com/getify/Functional-Light-JS)!
-
-I am including the topic of monads in the book because it's part of the journey that every developer will encounter while learning FP, just as I have in this book writing.
-
-We're basically ending this book with a brief glimpse at monads, whereas most other FP literature kinda almost starts with monads! I do not encounter in my "Functional-Light" programming much of a need to think explicitly in terms of monads, so that's why this material is more bonus than main core. But that's not to say monads aren't useful or prevalent -- they very much are.
-
-There's a bit of a joke around the JavaScript FP world that pretty much everybody has to write their own tutorial or blog post on what a monad is, like the writing of it alone is some rite of passage. Over the years, monads have variously been depicted as burritos, onions, and all sorts of other wacky conceptual abstractions. I hope there's none of that silly business going on here!
-
-> A monad is just a monoid in the category of endofunctors.
-
-We started the preface with this quote, so it seems fitting we come back to it here. But no, we won't be talking about monoids, endofunctors, or category theory. That quote is not only condescending, but totally unhelpful.
-
-My only hope for what you get out of this discussion is to not be scared of the term monad or the concept anymore -- I have been, for years! -- and to be able to recognize them when you see them. You might, just maybe, even use them on occasion.
-
-## Type
-
-There's a huge area of interest in FP that we've basically stayed entirely away from throughout this book: type theory. I'm not going to get very deep into type theory, because quite frankly I'm not qualified to do so. And you wouldn't appreciate it even if I did.
-
-But what I will say is that a monad is basically a value type.
-
-The number `42` has a value type (number!) that brings with it certain characteristics and capabilities that we rely on. The string `"42"` may look very similar, but it has a different purpose in our program.
-
-In object-oriented programming, when you have a set of data (even a single discrete value) and you have some behavior you want to bundle with it, you create an object/class to represent that "type". Instances are then members of that type. This practice generally goes by the name "data structures".
-
-I'm going to use the notion of data structures very loosely here, and assert that we may find it useful in a program to define a set of behaviors and constraints for a certain value, and bundle them together with that value into a single abstraction. That way, as we work with one or more of those kinds of values in our program, their behaviors come along for free and will make working with them more convenient. And by convenient, I mean more declarative and approachable for the reader of your code!
-
-A monad is a data structure. It's a type. It's a set of behaviors that are specifically designed to make working with a value predictable.
-
-Recall in [Chapter 9 that we talked about functors](ch9.md/#a-word-functors): a value along with a map-like utility to perform an operation on all its constitute data members. A monad is a functor that includes some additional behavior.
-
-## Loose Interface
-
-Actually, a monad isn't a single data type, it's really more like a related collection of data types. It's kind of an interface that's implemented differently depending on the needs of different values. Each implementation is a different type of monad.
-
-For example, you may read about the "Identity Monad", the "IO Monad", the "Maybe Monad", the "Either Monad", or a variety of others. Each of these has the basic monad behavior defined, but it extends or overrides the interactions according to the use cases for each different type of monad.
-
-It's a little more than an interface though, because it's not just the presence of certain API methods that makes an object a monad. There's a certain set of guarantees about the interactions of these methods that is necessary, to be monadic. These well-known invariants are critical to usage of monads improving readability by familiarity; otherwise, it's just an ad hoc data structure that must be fully read to be understood by the reader.
-
-As a matter of fact, there's not even just one single unified agreement on the names of these monadic methods, the way a true interface would mandate; a monad is more like a loose interface. Some people call a certain method `bind(..)`, some call it `chain(..)`, some call it `flatMap(..)`, and so on.
-
-So a monad is an object data structure with sufficient methods (of practically any name or sort) that at a minimum satisfy the main behavioral requirements of the monad definition. Each kind of monad has a different kind of extension above the minimum. But, because they all have an overlap in behavior, using two different kinds of monads together is still straightforward and predictable.
-
-It's in that sense that monads are sort of like an interface.
-
-## Just a Monad
-
-A basic primitive monad underlying many other monads you will run across is called Just. It's *just* a simple monadic wrapper for any regular (aka, non-empty) value.
-
-Since a monad is a type, you might think we'd define `Just` as a class to be instantiated. That's a valid way of doing it, but it introduces `this`-binding issues in the methods that I don't want to juggle; instead, I'm going to stick with just a simple function approach.
-
-Here's a basic implementation:
-
+# Apêndice B: A humilde monada
+Deixe-me começar este apêndice admitindo: eu não sabia muito sobre o que era um Monoide antes de começar a escrever este apêndice. E cometi muitos erros até conseguir algo sensato. Se você não acredita em mim, dê uma olhada no histórico de commits deste apêndice no [repositório do Github deste livro](https://github.com/getify/Functional-Light-JS)!
+Estou incluindo o tópico dos Monoides no livro porque faz parte da jornada que todo desenvolvedor encontrará enquanto aprende Programação Funcional (Functional Programming FP), assim como eu tive ao escrever este livro.
+Estamos basicamente terminando este livro com uma breve visão sobre os monoide, enquanto a maioria da literatura sobre FP quase sempre começa com os monoide! Não encontro muita necessidade de pensar explicitamente em termos de monoide na minha programação "Funcional-Light", por isso este material é mais um bônus do que parte do conteúdo principal. Mas isso não significa que os monoides não sejam úteis ou prevalentes -- eles são muito úteis e prevalentes.
+Há uma piada no mundo da FP em JavaScript de que praticamente todo mundo tem que escrever seu próprio tutorial ou post de blog sobre o que é um monoide, como se escrever sobre isso fosse um rito de passagem. Ao longo dos anos, os monoides têm sido representados de várias maneiras, como burritos, cebolas e todos os tipos de outras abstrações conceituais malucas. Espero que não haja nada dessas bobagens aqui!
+> Um monoide é apenas um monoide na categoria dos endofuntores.
+Começamos o prefácio com esta citação, então parece apropriado voltarmos a ela aqui. Mas não, não vamos falar sobre monoides, endofuntores ou teoria das categorias. Essa citação não é apenas condescendente, mas totalmente inútil.
+Minha única esperança com esta discussão é que você não tenha mais medo do termo monoide ou do conceito -- eu tive, por anos! -- e que seja capaz de reconhecê-los quando os vir. Você pode até quem sabe, usá-los ocasionalmente.
+## Tipo
+Há uma enorme área de interesse em FP que basicamente evitamos completamente ao longo deste livro: a teoria dos tipos. Não vou entrar muito fundo na teoria dos tipos, porque, francamente, não sou qualificado para isso. E você não apreciaria mesmo que eu fosse.
+Mas o que eu vou dizer é que um monoide é basicamente um tipo de valor.
+O número `42` tem um tipo de valor (número!) que traz consigo certas características e capacidades das quais dependemos. A string `"42"` pode parecer muito semelhante, mas tem um propósito diferente em nosso programa.
+Na programação orientada a objetos, quando você tem um conjunto de dados (mesmo um único valor discreto) e algum comportamento que deseja agrupar com ele, você cria um objeto/classe para representar esse "tipo". As instâncias são então membros desse tipo. Esta prática é geralmente conhecida como "estruturas de dados".
+Vou usar a noção de estruturas de dados de forma muito livre aqui e afirmar que podemos achar útil em um programa definir um conjunto de comportamentos e restrições para um determinado valor e agrupá-los com esse valor em uma única abstração. Dessa forma, ao trabalharmos com um ou mais desses tipos de valores em nosso programa, seus comportamentos vêm de graça, tornando o trabalho com eles mais conveniente. E por conveniente, quero dizer mais declarativo e acessível para o leitor do seu código!
+Um monoide é uma estrutura de dados. É um tipo. É um conjunto de comportamentos especificamente projetados para tornar o trabalho com um valor previsível.
+Lembre-se de que no [Capítulo 9 falamos sobre functors(ch9.md/#a-word-functors): um valor junto com uma utilidade semelhante a um mapa para realizar uma operação em todos os seus membros constituintes de dados. Um monad é um functor que inclui algum comportamento adicional.
+## Interface Flexível
+Na verdade, um monoide não é um único tipo de dado, é mais como uma coleção relacionada de tipos de dados. É como uma interface que é implementada de maneira diferente dependendo das necessidades de diferentes valores. Cada implementação é um tipo diferente de monoide.
+Por exemplo, você pode ler sobre o "Identity Monad", o "IO Monad", o "Maybe Monad", o "Either Monad" ou uma variedade de outros. Cada um deles tem o comportamento básico do monoide definido, mas estende ou substitui as interações de acordo com os casos de uso para cada tipo diferente de monoide.
+É um pouco mais do que uma interface, pois não é apenas a presença de certos métodos de API que torna um objeto um monoide. Há um conjunto específico de garantias sobre as interações desses métodos que é necessário para ser monádico. Esses invariantes bem conhecidos são críticos para o uso dos monoides, melhorando a legibilidade pela familiaridade; caso contrário, é apenas uma estrutura de dados ad hoc que deve ser totalmente lida para ser compreendida pelo leitor.
+Na verdade, não há nem mesmo um acordo único e unificado sobre os nomes desses métodos monádicos, da forma que uma verdadeira interface exigiria; um monoide é mais como uma interface flexível. Algumas pessoas chamam um certo método de `bind(..)`, outras de `chain(..)`, outras de `flatMap(..)`, e assim por diante.
+Portanto, um monoide é uma estrutura de dados de objeto com métodos suficientes (de praticamente qualquer nome ou tipo) que, no mínimo, satisfaçam os principais requisitos comportamentais da definição de monoide. Cada tipo de monoide tem um tipo diferente de extensão acima do mínimo. Mas, como todos têm uma sobreposição de comportamento, usar dois tipos diferentes de monoides juntos ainda é direto e previsível.
+É nesse sentido que os monoides são como uma interface.
+## Apenas um Monoide
+Um monoide primitivo básico subjacente a muitos outros monoides que você encontrará é chamado Apenas (Just). É *apenas* um simples encapsulador monádico para qualquer valor regular (ou seja, não vazio).
+Como um monoide é um tipo, você pode pensar que definiríamos `Just` como uma classe a ser instanciada. Essa é uma maneira válida de fazer isso, mas isso introduz problemas de vinculação de `this` nos métodos que eu não quero lidar; em vez disso, vou seguir com apenas uma abordagem de função simples.
+Aqui está uma implementação básica:
 ```js
 function Just(val) {
     return { map, chain, ap, inspect };
@@ -71,28 +45,19 @@ function Just(val) {
     }
 }
 ```
-
-**Note:** The `inspect(..)` method is included here only for our demonstration purposes. It serves no direct role in the monadic sense.
-
-You'll notice that whatever `val` value a `Just(..)` instance holds, it's never changed. All monad methods create new monad instances instead of mutating the monad's value itself.
-
-Don't worry if most of this doesn't make sense right now. We're not gonna obsess too much over the details or the math/theory behind the design of the monad. Instead, we'll focus more on illustrating what we can do with them.
-
-### Working with Monad Methods
-
-All monad instances will have `map(..)`, `chain(..)` (also called `bind(..)` or `flatMap(..)`), and `ap(..)` methods. The purpose of these methods and their behavior is to provide a standardized way of multiple monad instances interacting with each other.
-
-Let's look first at the monadic `map(..)` function. Like `map(..)` on an array (see [Chapter 9](ch9.md/#map)) that calls a mapper function with its value(s) and produces a new array, a monad's `map(..)` calls a mapper function with the monad's value, and whatever is returned is wrapped in a new Just monad instance:
-
+**Nota:** O método `inspeção(..)` está incluído aqui apenas para fins de demonstração. Ele não desempenha nenhum papel direto no sentido monádico.
+Você perceberá que qualquer valor `val` que uma instância `Apenas(..)` contenha, nunca é alterado. Todos os métodos monádicos criam novas instâncias de monoides em vez de mutar o próprio valor do monoide.
+Não se preocupe se a maior parte disso não fizer sentido até agora. Não vamos nos preocupar muito com os detalhes ou com a matemática/teoria por trás do design do monoide. Em vez disso, vamos nos concentrar mais em ilustrar o que podemos fazer com eles.
+### Trabalhando com Métodos de Monoides
+Todas as instâncias de monoides terão os métodos `map(..)`, `chain(..)` (também chamado de `bind(..)` ou `flatMap(..)`), e `ap(..)`. O propósito desses métodos e seu comportamento é fornecer uma maneira padronizada para várias instâncias de monoides interagirem entre si.
+Vamos olhar primeiro para a função monádica `map(..)`. Como `map(..)` em um array (veja [Capítulo 9](ch9.md/#map)) que chama uma função mapper com seu(s) valor(es) e produz um novo array, o `map(..)` de um monoide chama uma função mapper com o valor do monoide, e o que quer que seja retornado é encapsulado em uma nova instância do monoide Apenas
 ```js
 var A = Just( 10 );
 var B = A.map( v => v * 2 );
 
 B.inspect();                // Just(20)
 ```
-
-Monadic `chain(..)` kinda does the same thing as `map(..)`, but then it sort of unwraps the resulting value from its new monad. However, instead of thinking informally about "unwrapping" a monad, the more formal explanation would be that `chain(..)` flattens the monad. Consider:
-
+O método monádico `chain(..)` faz algo semelhante ao `map(..)`, mas ele meio que desembrulha o valor resultante de seu novo monoide. No entanto, em vez de pensar informalmente sobre "desembrulhar" um monoide, a explicação mais formal seria que `chain(..)` achata o monoide. Considere:
 ```js
 var A = Just( 10 );
 var eleven = A.chain( v => v + 1 );
@@ -100,43 +65,29 @@ var eleven = A.chain( v => v + 1 );
 eleven;                     // 11
 typeof eleven;              // "number"
 ```
-
-`eleven` is the actual primitive number `11`, not a monad holding that value.
-
-To connect this `chain(..)` method conceptually to stuff we've already learned, we'll point out that many monad implementations name this method `flatMap(..)`. Now, recall from [Chapter 9 what `flatMap(..)`](ch9.md/#user-content-flatmap) does (as compared to `map(..)`) with an array:
-
+`onze` é o número primitivo `11` real, não um monoide contendo esse valor.
+Para conectar conceitualmente esse método `chain(..)` com coisas que já aprendemos, apontamos que muitas implementações de monoides nomeiam esse método como `flatMap(..)`. Agora, lembre-se do [Capítulo 9 sobre o que `flatMap(..)`](ch9.md/#user-content-flatmap) faz (em comparação com `map(..)`) com um array:
 ```js
 var x = [3];
 
 map( v => [v,v+1], x );         // [[3,4]]
 flatMap( v => [v,v+1], x );     // [3,4]
 ```
-
-See the difference? The mapper function `v => [v,v+1]` results in a `[3,4]` array, which ends up in the single first position of the outer array, so we get `[[3,4]]`. But `flatMap(..)` flattens out the inner array into the outer array, so we get just `[3,4]` instead.
-
-That's the same kind of thing going on with a monad's `chain(..)` (often referred to as `flatMap(..)`). Instead of getting a monad holding the value as `map(..)` does, `chain(..)` additionally flattens the monad into the underlying value. Actually, instead of creating that intermediate monad only to immediately flatten it, `chain(..)` is generally implemented more performantly to just take a shortcut and not create the monad in the first place. Either way, the end result is the same.
-
-One way to illustrate `chain(..)` in this manner is in combination with the `identity(..)` utility (see [Chapter 3](ch3.md/#one-on-one)), to effectively extract a value from a monad:
-
+Veja a diferença? A função mapper `v => [v,v+1]` resulta em um array `[3,4]`, que acaba na primeira posição única do array externo, então obtemos `[[3,4]]`. Mas `flatMap(..)` achata o array interno no array externo, então obtemos apenas `[3,4]`.
+É esse mesmo tipo de coisa que acontece com o `chain(..)` de um monoide (frequentemente referido como `flatMap(..)`). Em vez de obter um monoide contendo o valor como `map(..)` faz, `chain(..)` adicionalmente achata o monoide no valor subjacente. Na verdade, em vez de criar esse monoide intermediário apenas para achatá-lo imediatamente, `chain(..)` é geralmente implementado de maneira mais eficiente para simplesmente tomar um atalho e não criar o monoide em primeiro lugar. De qualquer forma, o resultado final é o mesmo.
+Uma maneira de ilustrar `chain(..)` dessa forma é em combinação com a utilidade `identity(..)` (veja [Capítulo 3](ch3.md/#one-on-one)), para extrair efetivamente um valor de um monoide:
 ```js
 var identity = v => v;
 
 A.chain( identity );        // 10
 ```
-
-`A.chain(..)` calls `identity(..)` with the value in `A`, and whatever value `identity(..)` returns (`10` in this case) just comes right out without any intervening monad. In other words, from that earlier `Just(..)` code listing, we wouldn't actually need to include that optional `inspect(..)` helper, as `chain(identity)` accomplishes the same goal; it's purely for ease of debugging as we learn monads.
-
-At this point, hopefully both `map(..)` and `chain(..)` feel fairly reasonable to you.
-
-By contrast, a monad's `ap(..)` method will likely be much less intuitive at first glance. It will seem like a strange contortion of interaction, but there's deep and important reasoning behind the design. Let's take a moment to break it down.
-
-`ap(..)` takes the value wrapped in a monad and "applies" it to another monad using that other monad's `map(..)`. OK, fine so far.
-
-However, `map(..)` always expects a function. So that means the monad you call `ap(..)` on has to actually contain a function as its value, to pass to that other monad's `map(..)`.
-
-Confused? Yeah, not what you might have expected. We'll try to briefly illuminate, but just expect that these things will be fuzzy for a while until you've had a lot more exposure and practice with monads.
-
-We'll define `A` as a monad that contains a value `10`, and `B` as a monad that contains the value `3`:
+`A.chain(..)` chama `identidade(..)` com o valor em `A`, e qualquer valor que `identidade(..)` retorna (`10` neste caso) simplesmente sai sem nenhum monoide intermediário. Em outras palavras, daquele código anterior de `Apenas(..)`, na verdade não precisaríamos incluir aquele auxiliar opcional `inspect(..)`, pois `chain(identidade)` alcança o mesmo objetivo; é puramente para facilitar a depuração enquanto aprendemos sobre monoide.
+Neste ponto, espero que tanto `map(..)` quanto `chain(..)` pareçam bastante razoáveis para você.
+Por outro lado, o método `ap(..)` de um monoide provavelmente será muito menos intuitivo à primeira vista. Ele parecerá uma estranha contorção de interação, mas há um raciocínio profundo e importante por trás do design. Vamos reservar um momento para explicá-lo.
+`ap(..)` pega o valor encapsulado em um monoide e o "aplica" a outro monoide usando o `map(..)` desse outro monoide. Ok, até aqui tudo bem.
+No entanto, `map(..)` sempre espera uma função. Isso significa que o monoide em que você chama `ap(..)` precisa realmente conter uma função como seu valor, para passar para o `map(..)` desse outro monoide.
+Confuso? Sim, não é o que você poderia esperar. Vamos tentar esclarecer brevemente, mas espere que essas coisas sejam confusas por um tempo até que você tenha tido muito mais exposição e prática com monoides.
+Vamos definir `A` como um monoide que contém um valor `10`, e `B` como um monoide que contém o valor `3`:
 
 ```js
 var A = Just( 10 );
@@ -145,13 +96,9 @@ var B = Just( 3 );
 A.inspect();                // Just(10)
 B.inspect();                // Just(3)
 ```
-
-Now, how could we make a new monad where the values `10` and `3` had been added together, say via a `sum(..)` function? Turns out `ap(..)` can help.
-
-To use `ap(..)`, we said we first need to construct a monad that holds a function. Specifically, we need one that holds a function that itself holds (remembers via closure) the value in `A`. Let that sink in for a moment.
-
-To make a monad from `A` that holds a value-containing function, we call `A.map(..)`, giving it a curried function that "remembers" that extracted value (see [Chapter 3](ch3.md/#one-at-a-time)) as its first argument. We'll call this new function-containing monad `C`:
-
+Agora, como poderíamos criar um novo monoide onde os valores `10` e `3` foram somados, digamos via uma função `sum(..)`? Acontece que `ap(..)` pode ajudar.
+Para usar `ap(..)`, dissemos que primeiro precisamos construir um monoide que contenha uma função. Especificamente, precisamos de um que contenha uma função que por si só mantenha (lembre via fechamento) o valor em `A`. Deixe isso se firmar por um momento.
+Para criar um monoide a partir de `A` que contenha uma função com valor, chamamos `A.map(..)`, fornecendo uma função curried que "lembra" aquele valor extraído (veja [Capítulo 3](ch3.md/#one-at-a-time)) como seu primeiro argumento. Chamaremos esse novo monoide contendo função de `C`:
 ```js
 function sum(x,y) { return x + y; }
 
@@ -160,107 +107,73 @@ var C = A.map( curry( sum ) );
 C.inspect();
 // Just(function curried...)
 ```
-
-Think about how that works. The curried `sum(..)` function is expecting two values to do its work, and we give it the first of those values by having `A.map(..)` extract `10` and pass it in. `C` now holds the function that remembers `10` via closure.
-
-Now, to get the second value (`3` inside `B`) passed to the waiting curried function in `C`:
-
+Pense em como isso funciona. A função curried `sum(..)` espera dois valores para fazer seu trabalho, e damos o primeiro desses valores ao ter `A.map(..)` extraindo `10` e passando-o. `C` agora contém a função que lembra `10` via fechamento.
+Agora, para obter o segundo valor (`3` dentro de `B`) passado para a função curried esperando em `C`:
 ```js
 var D = C.ap( B );
 
 D.inspect();                // Just(13)
 ```
-
-The value `10` came out of `C`, and `3` came out of `B`, and `sum(..)` added them together to `13` and wrapped that in the monad `D`. Let's put the two steps together so you can see their connection more clearly:
-
+O valor `10` saiu de `C`, e `3` saiu de `B`, e `sum(..)` os somou para `13` e encapsulou isso no monoide `D`. Vamos juntar os dois passos para que você possa ver a conexão mais claramente:
 ```js
 var D = A.map( curry( sum ) ).ap( B );
 
 D.inspect();                // Just(13)
 ```
-
-To illustrate what `ap(..)` is helping us with, we could have achieved the same result this way:
-
+Para ilustrar com o que `ap(..)` está nos ajudando, poderíamos ter alcançado o mesmo resultado desta maneira:
 ```js
 var D = B.map( A.chain( curry( sum ) ) );
 
 D.inspect();                // Just(13);
 ```
-
-And that of course is just a composition (see [Chapter 4](ch4.md)):
-
+E isso, claro, é apenas uma composição (veja [Capítulo 4](ch4.md)):
 ```js
 var D = compose( B.map, A.chain, curry )( sum );
 
 D.inspect();                // Just(13)
 ```
-
-Cool, huh!?
-
-If the *how* of this discussion on monad methods is unclear so far, go back and re-read. If the *why* is elusive, just hang in there. Monads so easily confound developers, that's *just* how it is!
-
-## Maybe
-
-It's very common in FP material to cover well-known monads like Maybe. Actually, the Maybe monad is a particular pairing of two other simpler monads: Just and Nothing.
-
-We've already seen Just; Nothing is a monad that holds an empty value. Maybe is a monad that either holds a Just or a Nothing.
-
-Here's a minimal implementation of Maybe:
-
+Legal, né!?
+Se o *como* dessa discussão sobre métodos de monoides ainda não estiver claro, volte e releia. Se o *porquê* estiver elusivo, apenas persista. Monoides confundem facilmente os desenvolvedores, é *apenas* assim que é!
+## Talvez
+É muito comum no material de FP cobrir monoides bem conhecidas como Talvez (Maybe). Na verdade, o monoide Talvez (Maybe) é um emparelhamento particular de dois outros monoides mais simples: Apenas (Just) e Nada (Nothing).
+Já vimos Apenas (Just); Nada (Nothing) é um monoide que contém um valor vazio. Talvez (Maybe) é um monoide que contém um apenas (Just) ou um Nada (Nothing).
+Aqui está uma implementação mínima de Talvez (Maybe):
 ```js
 var Maybe = { Just, Nothing, of/* aka: unit, pure */: Just };
 
 function Just(val) { /* .. */ }
-
+```javascript
 function Nothing() {
     return { map: Nothing, chain: Nothing, ap: Nothing, inspect };
-
-    // *********************
+// *********************
 
     function inspect() {
         return "Nothing";
     }
 }
 ```
-
-**Note:** `Maybe.of(..)` (sometimes referred to as `unit(..)` or `pure(..)`) is a convenience alias for `Just(..)`.
-
-In contrast to `Just()` instances, `Nothing()` instances have no-op definitions for all monadic methods. So if such a monad instance shows up in any monadic operations, it has the effect of basically short-circuiting to have no behavior happen. Notice there's no imposition here of what "empty" means -- your code gets to decide that. More on that later.
-
-In Maybe, if a value is non-empty, it's represented by an instance of `Just(..)`; if it's empty, it's represented by an instance of `Nothing()`.
-
-But the importance of this kind of monad representation is that whether we have a `Just(..)` instance or a `Nothing()` instance, we'll use the API methods the same.
-
-The power of the Maybe abstraction is to encapsulate that behavior/no-op duality implicitly.
-
-### Different Maybes
-
-Many implementations of a JavaScript Maybe monad include a check (usually in `map(..)`) to see if the value is `null`/`undefined`, and skipping the behavior if so. In fact, Maybe is trumpeted as being valuable precisely because it sort of automatically short-circuits its behavior with the encapsulated empty-value check.
-
-Here's how Maybe is usually illustrated:
-
+**Nota:** `Maybe.of(..)` (às vezes referido como `unit(..)` ou `pure(..)`) é um alias de conveniência para `Just(..)`.
+Em contraste com instâncias de `Just()`, instâncias de `Nothing()` têm definições no-op para todos os métodos monádicos. Então, se uma instância desse monoide aparece em qualquer operação monádica, ela basicamente tem o efeito de encurtar a execução para não realizar nenhuma ação. Note que aqui não há imposição do que "vazio" significa - seu código decide isso. Mais sobre isso depois.
+No Maybe, se um valor não é vazio, é representado por uma instância de `Just(..)`; se é vazio, é representado por uma instância de `Nothing()`.
+Mas a importância desse tipo de representação monádica é que, seja uma instância de `Just(..)` ou de `Nothing()`, usaremos os métodos da API da mesma maneira.
+O poder da abstração Maybe é encapsular implicitamente essa dualidade de comportamento/no-op.
+### Diferentes Maybes
+Muitas implementações de um monoide Maybe em JavaScript incluem uma verificação (geralmente em `map(..)`) para ver se o valor é `null`/`undefined`, e pulam o comportamento se for. Na verdade, o Maybe é valorizado precisamente porque ele meio que automaticamente interrompe seu comportamento com a verificação de valor vazio encapsulada.
+Veja como o Maybe é geralmente ilustrado:
 ```js
-// instead of unsafe `console.log( someObj.something.else.entirely )`:
-
+// em vez de usar o inseguro `console.log( someObj.something.else.entirely)`:
 Maybe.of( someObj )
 .map( prop( "something" ) )
 .map( prop( "else" ) )
 .map( prop( "entirely" ) )
 .map( console.log );
 ```
-
-In other words, if at any point in the chain we get a `null`/`undefined` value, the Maybe magically switches into no-op mode -- it's now a `Nothing()` monad instance! -- and stops doing anything for the rest of the chain. That makes the nested-property access safe against throwing JS exceptions if some property is missing/empty. That's cool, and a nice helpful abstraction for sure!
-
-But... ***that approach to Maybe is not a pure monad.***
-
-The core spirit of a Monad says that it must be valid for all values and cannot do any inspection of the value, at all -- not even a null check. So those other implementations are cutting corners for the sake of convenience. It's not a huge deal, but when it comes to learning something, you should probably learn it in its purest form first before you go bending the rules.
-
-The earlier implementation of the Maybe monad I provided differs from other Maybes primarily in that it does not have the empty-check in it. Also, we present `Maybe` merely as a loose pairing of `Just(..)`/`Nothing()`.
-
-So wait. If we don't get the automatic short-circuiting, why is Maybe useful at all?!? That seems like its whole point.
-
-Never fear! We can simply provide the empty-check externally, and the rest of the short-circuiting behavior of the Maybe monad will work just fine. Here's how you could do the nested-property access (`someObj.something.else.entirely`) from before, but more "correctly":
-
+Em outras palavras, se em qualquer ponto da cadeia obtivermos um valor `null`/`undefined`, o Maybe magicamente muda para o modo no-op - agora é uma instância de `Nothing()`! - e para de fazer qualquer coisa pelo resto da cadeia. Isso torna o acesso a propriedades aninhadas seguro contra a geração de exceções JS se alguma propriedade estiver ausente/vazia. Isso é legal, e uma abstração certamente útil!
+Mas... ***essa abordagem ao Maybe não é um monoide pura.***
+O espírito central de uma Monoide diz que ela deve ser válida para todos os valores e não pode fazer nenhuma inspeção do valor, de jeito nenhum — nem mesmo uma verificação de nulo. Portanto, essas outras implementações estão cortando caminhos por conveniência. Não é um grande problema, mas quando se trata de aprender algo, você deve aprender na sua forma mais pura antes de começar a flexibilizar as regras.
+A implementação anterior do monoide Maybe que forneci difere de outras Maybe principalmente por não ter a verificação de vazio. Além disso, apresentamos `Maybe` apenas como uma combinação solta de `Just(..)`/`Nothing()`.
+Então espere. Se não obtemos o encurtamento automático, por que o Maybe é útil? Parece que esse é ponto.
+Não tema! Podemos simplesmente fornecer a verificação de vazio externamente, e o resto do comportamento de encurtamento da monoide Maybe funcionará perfeitamente. Veja como você poderia fazer o acesso a propriedades aninhadas (`algumObj.algo.a.mais.totalmente `) de antes, mas de forma mais "correta":
 ```js
 function isEmpty(val) {
     return val === null || val === undefined;
@@ -277,21 +190,13 @@ Maybe.of( someObj )
 .chain( safeProp( "entirely" ) )
 .map( console.log );
 ```
-
-We made a `safeProp(..)` that does the empty-check, and selects either a `Nothing()` monad instance if so, or wraps the value in a `Just(..)` instance (via `Maybe.of(..)`). Then instead of `map(..)`, we use `chain(..)` which knows how to "unwrap" the monad that `safeProp(..)` returns.
-
-We get the same chain short-circuiting upon encountering an empty value. We just don't embed that logic into the Maybe.
-
-The benefit of the monad, and Maybe specifically, is that our `map(..)` and `chain(..)` methods have a consistent and predictable interaction regardless of which kind of monad comes back. That's pretty cool!
-
-## Humble
-
-Now that we have a little more understanding of Maybe and what it does, I'm going to put a little twist on it -- and add some self-deferential humor to our discussion -- by inventing the Maybe+Humble monad. Technically, `MaybeHumble(..)` is not a monad itself, but a factory function that produces a Maybe monad instance.
-
-Humble is an admittedly contrived data structure wrapper that uses Maybe to track the status of an `egoLevel` number. Specifically, `MaybeHumble(..)`-produced monad instances only operate affirmatively if their ego-level value is low enough (less than `42`!) to be considered humble; otherwise it's a `Nothing()` no-op. That should sound a lot like Maybe; it's pretty similar!
-
-Here's the factory function for our Maybe+Humble monad:
-
+Criamos um `safeProp(..)` que faz a verificação de vazio e seleciona uma instância de monoide `Nothing()` se for o caso, ou envolve o valor em uma instância de `Just(..)` (via `Maybe.of(..)`). Então, em vez de `map(..)`, usamos `chain(..)` que sabe como "desembrulhar" a monoide que `safeProp(..)` retorna.
+Obtemos o mesmo encurtamento de cadeia ao encontrar um valor vazio. Só não incorporamos essa lógica no Maybe.
+O benefício do monoide, e do Maybe especificamente, é que nossos métodos `map(..)` e `chain(..)` têm uma interação consistente e previsível, independentemente de qual tipo de monoide retorna. Isso é bem legal!
+## Humilde
+Agora que entendemos um pouco mais sobre Maybe e o que ele faz, vou dar uma pequena reviravolta — e adicionar um pouco de humor autodepreciativo à nossa discussão — ao inventar o monoide MaybeHumble (TalvezHumilde). Tecnicamente, `MaybeHumble(..)` não é uma monoide em si, mas uma função fábrica que produz uma instância do monoide Maybe.
+Humilde (Humble) é uma estrutura de dados assumidamente artificial que usa Maybe para rastrear o status de um número `nivelEgo`. Especificamente, as instâncias do monoide produzidas por `MaybeHumilde(..)` só operam afirmativamente se o valor do seu nível de ego for baixo o suficiente (menor que `42`!) para ser considerado humilde; caso contrário, é um `Nothing()` sem ação. Isso deve soar muito parecido com Maybe; é bem similar!
+Aqui está a função fábrica para nosso monoide Maybe+Humilde:
 ```js
 function MaybeHumble(egoLevel) {
     // accept anything other than a number that's 42 or higher
@@ -300,20 +205,7 @@ function MaybeHumble(egoLevel) {
         Maybe.Nothing();
 }
 ```
-
-You'll notice that this factory function is kinda like `safeProp(..)`, in that it uses a condition to decide if it should pick the `Just(..)` or the `Nothing()` part of the Maybe.
-
-Let's illustrate some basic usage:
-
-```js
-var bob = MaybeHumble( 45 );
-var alice = MaybeHumble( 39 );
-
-bob.inspect();              // Nothing
-alice.inspect();            // Just(39)
-```
-
-What if Alice wins a big award and is now a bit more proud of herself?
+Você notará que esta função fábrica é meio parecida com `safeProp(..)`, na medida em que usa uma condição para decidir se deve escolher a parte `Just(..)` ou `Nothing()` do Maybe.
 
 ```js
 function winAward(ego) {
@@ -324,10 +216,8 @@ alice = alice.chain( winAward );
 alice.inspect();            // Nothing
 ```
 
-The `MaybeHumble( 39 + 3 )` call creates a `Nothing()` monad instance to return back from the `chain(..)` call, so now Alice doesn't qualify as humble anymore.
-
-Now, let's use a few monads together:
-
+A chamada `MaybeHumilde(39 + 3)` cria uma instância do monoide `Nothing()` para retornar da chamada `chain(..)`, então agora Alice não se qualifica mais como humilde.
+Agora, vamos usar alguns monoide juntos:
 ```js
 var bob = MaybeHumble( 41 );
 var alice = MaybeHumble( 39 );
@@ -340,11 +230,12 @@ bob.map( teamMembers ).ap( alice );
 // Our humble team's egos: 41 39
 ```
 
-Recalling the usage of `ap(..)` from earlier, we can now explain how this code works.
-
-Because `teamMembers(..)` is curried, the `bob.map(..)` call passes in the `bob` ego level (`41`), and creates a monad instance with the remaining function wrapped up. Calling `ap(alice)` on *that* monad calls `alice.map(..)` and passes to it the function from the monad. The effect is that both the `bob` and `alice` monad's numeric values have been provided to `teamMembers(..)` function, printing out the message as shown.
-
-However, if either or both monads are actually `Nothing()` instances (because their ego level was too high):
+bob.map(teamMembers).ap(alice);
+// O ego do nosso humilde time: 41 39
+```
+Lembrando do uso de `ap(..)` de antes, agora podemos explicar como esse código funciona.
+Como `teamMembers(..)` é curryed, a chamada `bob.map(..)` passa o nível de ego de `bob` (`41`) e cria uma instância de monoide com a função restante encapsulada. Chamar `ap(alice)` *naquele* monoide chama `alice.map(..)` e passa a função do monoide para ela. O efeito é que os valores numéricos dos monoides `bob` e `alice` foram fornecidos para a função `teamMembers(..)`, exibindo a mensagem mostrada.
+No entanto, se um ou ambos os monoides forem instâncias `Nothing()` (porque o nível de ego deles era muito alto):
 
 ```js
 var frank = MaybeHumble( 45 );
@@ -355,13 +246,9 @@ bob.map( teamMembers ).ap( frank );
 frank.map( teamMembers ).ap( bob );
 // ..no output..
 ```
-
-`teamMembers(..)` never gets called (and no message is printed), because `frank` is a `Nothing()` instance. That's the power of the Maybe monad, and our `MaybeHumble(..)` factory allows us to select based on the ego level. Cool!
-
-### Humility
-
-One more example to illustrate the behaviors of our Maybe+Humble data structure:
-
+`teamMembers(..)` nunca é chamada (e nenhuma mensagem é exibida) porque `frank` é uma instância `Nothing()`. Esse é o poder do monoide Maybe, e nossa fábrica `MaybeHumble(..)` nos permite selecionar com base no nível de ego. Legal!
+### Humildade
+Mais um exemplo para ilustrar os comportamentos de nossa estrutura de dados Maybe+Humble:
 ```js
 function introduction() {
     console.log( "I'm just a learner like you! :)" );
@@ -388,10 +275,8 @@ learner
 // ..nothing else..
 ```
 
-Unfortunately, the learning process seems to have been cut short. You see, I've found that learning a bunch of stuff without sharing with others inflates your ego too much and is not good for your skills.
-
-Let's try a better approach to learning:
-
+Infelizmente, o processo de aprendizado parece ter sido interrompido. Veja, eu descobri que aprender um monte de coisas sem compartilhar com os outros inflaciona muito o seu ego e não é bom para suas habilidades.
+Vamos tentar uma abordagem melhor para o aprendizado:
 ```js
 var share = egoChange( -2 );
 
@@ -415,13 +300,13 @@ learner
 // Shared map/reduce.
 // I'm just a learner like you! :)
 ```
+Compartilhar enquanto você aprende. Essa é a melhor maneira de aprender mais e aprender melhor.
+## Resumo
+O que é uma monoide, afinal? Um monoide é um tipo de valor, uma interface, uma estrutura de dados com comportamentos encapsulados.
+Mas nenhuma dessas definições é particularmente útil. Aqui está uma tentativa de algo melhor: **um monoide é como você organiza comportamentos em torno de um valor de uma forma mais declarativa.**
+Como com tudo mais neste livro, use monoides onde eles são úteis, mas não os use apenas porque todo mundo fala sobre elas em FP. Monoides não são uma solução universal, mas oferecem alguma utilidade quando usadas de forma conservadora.
 
-Sharing while you learn. That's the best way to learn more and learn better.
 
-## Summary
 
-What is a monad, anyway? A monad is a value type, an interface, an object data structure with encapsulated behaviors.
 
-But none of those definitions are particularly useful. Here's an attempt at something better: **a monad is how you organize behavior around a value in a more declarative way.**
 
-As with everything else in this book, use monads where they are helpful but don't use them just because everyone else talks about them in FP. Monads aren't a universal silver bullet, but they do offer some utility when used conservatively.
